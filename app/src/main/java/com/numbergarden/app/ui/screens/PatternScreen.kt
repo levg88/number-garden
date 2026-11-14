@@ -34,9 +34,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.numbergarden.app.R
 import com.numbergarden.app.audio.LocalSpeech
+import com.numbergarden.app.audio.SoundEffects
 import com.numbergarden.app.di.AppContainer
 import com.numbergarden.app.domain.PatternPhase
 import com.numbergarden.app.domain.PatternState
+import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.ContentErrorScreen
 import com.numbergarden.app.ui.components.FlowerArt
@@ -54,6 +56,7 @@ fun PatternScreen(
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
     val progress by container.progressRepository.progress.collectAsStateWithLifecycle()
+    val settings by container.settingsRepository.settings.collectAsStateWithLifecycle()
 
     when (val current = state) {
         PatternViewModel.State.Loading -> LoadingScreen(onHome)
@@ -64,6 +67,7 @@ fun PatternScreen(
         )
         is PatternViewModel.State.Ready -> PatternReadyScreen(
             ui = current.ui,
+            settings = settings,
             progress = progress,
             onChoose = viewModel::choose,
             onNext = viewModel::next,
@@ -76,6 +80,7 @@ fun PatternScreen(
 @Composable
 private fun PatternReadyScreen(
     ui: PatternViewModel.Ui,
+    settings: AppSettings,
     progress: Progress,
     onChoose: (Int) -> Unit,
     onNext: () -> Unit,
@@ -106,7 +111,10 @@ private fun PatternReadyScreen(
     }
     LaunchedEffect(ui.sessionId, game.index, game.phase, game.misses) {
         when (game.phase) {
-            PatternPhase.CORRECT -> speech.say(correct)
+            PatternPhase.CORRECT -> {
+                if (settings.sound) SoundEffects.correct()
+                speech.say(correct)
+            }
             PatternPhase.TEACH -> speech.say(teach)
             PatternPhase.ASK -> if (game.misses == 1) speech.say(hint)
         }

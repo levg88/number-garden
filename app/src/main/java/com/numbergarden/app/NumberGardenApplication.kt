@@ -11,5 +11,6 @@ class NumberGardenApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         container = AppContainer(this)
+        com.numbergarden.app.audio.SoundEffects.init(this)
     }
 }

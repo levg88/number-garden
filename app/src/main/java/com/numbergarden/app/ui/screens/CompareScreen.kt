@@ -35,6 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.numbergarden.app.R
 import com.numbergarden.app.audio.LocalSpeech
+import com.numbergarden.app.audio.SoundEffects
 import com.numbergarden.app.di.AppContainer
 import com.numbergarden.app.domain.ComparePhase
 import com.numbergarden.app.domain.GroupSide
@@ -120,7 +121,10 @@ private fun CompareReadyScreen(
     }
     LaunchedEffect(ui.sessionId, game.index, game.phase, game.misses) {
         when (game.phase) {
-            ComparePhase.CORRECT -> speech.say(sentence)
+            ComparePhase.CORRECT -> {
+                if (settings.sound) SoundEffects.correct()
+                speech.say(sentence)
+            }
             ComparePhase.TEACH -> speech.say(teachSentence)
             ComparePhase.ASK -> if (game.misses == 1) speech.say("$tryAgain $hint")
         }

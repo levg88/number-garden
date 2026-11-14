@@ -44,9 +44,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.numbergarden.app.R
 import com.numbergarden.app.audio.LocalSpeech
+import com.numbergarden.app.audio.SoundEffects
 import com.numbergarden.app.di.AppContainer
 import com.numbergarden.app.domain.CountPhase
 import com.numbergarden.app.domain.CountingState
+import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.ContentErrorScreen
@@ -79,6 +81,7 @@ fun MatchScreen(
 
         is CountingViewModel.State.Ready -> MatchReadyScreen(
             ui = current.ui,
+            settings = settings,
             progress = progress,
             onChoose = viewModel::choose,
             onNext = viewModel::next,
@@ -91,6 +94,7 @@ fun MatchScreen(
 @Composable
 private fun MatchReadyScreen(
     ui: CountingViewModel.Ui,
+    settings: AppSettings,
     progress: Progress,
     onChoose: (Int) -> Unit,
     onNext: () -> Unit,
@@ -122,7 +126,10 @@ private fun MatchReadyScreen(
     }
     LaunchedEffect(ui.sessionId, game.index, game.phase, game.misses) {
         when (game.phase) {
-            CountPhase.CORRECT -> speech.say(correct)
+            CountPhase.CORRECT -> {
+                if (settings.sound) SoundEffects.correct()
+                speech.say(correct)
+            }
             CountPhase.TEACH -> speech.say(thisIs)
             CountPhase.ASK -> if (game.misses == 1) speech.say(hint)
         }

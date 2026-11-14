@@ -172,6 +172,11 @@
     <string name="settings_motion_hint">Turns off growing and fading animations.</string>
     <string name="settings_contrast">High contrast</string>
     <string name="settings_contrast_hint">Stronger colors and outlines.</string>
+    <string name="settings_voice_style">Voice style</string>
+    <string name="settings_voice_style_hint">Choose how the narrator sounds.</string>
+    <string name="voice_style_friendly">Friendly</string>
+    <string name="voice_style_hero">Hero</string>
+    <string name="voice_style_robot">Robot</string>
     <string name="settings_rounds">Activities per session</string>
     <string name="settings_rounds_hint">Fewer rounds make a shorter session.</string>
     <string name="settings_rounds_value">%1$d rounds</string>

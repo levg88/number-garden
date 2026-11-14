@@ -47,7 +47,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -133,6 +136,7 @@ private fun PlayerContent(
     var isPlaying by remember(lesson.id) { mutableStateOf(false) }
     var finished by remember(lesson.id) { mutableStateOf(false) }
     var captionIndex by remember(lesson.id) { mutableIntStateOf(-1) }
+    val captionAlpha = remember(lesson.id) { Animatable(1f) }
     var savedPosition by rememberSaveable(lesson.id) { mutableIntStateOf(0) }
 
     val activity = remember(context) { context.findActivity() }
@@ -194,6 +198,10 @@ private fun PlayerContent(
         if (captionIndex in lesson.captions.indices) {
             speech.say(lesson.captions[captionIndex].text)
         }
+    }
+    LaunchedEffect(captionIndex) {
+        captionAlpha.snapTo(0f)
+        captionAlpha.animateTo(1f, animationSpec = tween(300))
     }
 
     LaunchedEffect(finished) {
@@ -363,6 +371,7 @@ private fun PlayerContent(
                         text = currentCaption.ifBlank { stringResource(R.string.lesson_caption_empty) },
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.graphicsLayer(alpha = captionAlpha.value),
                     )
                 }
             }

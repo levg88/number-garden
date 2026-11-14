@@ -46,8 +46,7 @@ class Narrator(
                 ) {
                     engine?.setLanguage(Locale.getDefault())
                 }
-                engine?.setSpeechRate(0.88f)
-                engine?.setPitch(1.0f)
+                applyStyle()
                 engine?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                     override fun onStart(utteranceId: String?) = Unit
                     override fun onDone(utteranceId: String?) = Unit
@@ -72,8 +71,20 @@ class Narrator(
     }
 
     private fun speakNow(text: String, add: Boolean) {
+        applyStyle()
         val mode = if (add) TextToSpeech.QUEUE_ADD else TextToSpeech.QUEUE_FLUSH
         engine?.speak(text, mode, null, "ng-${text.hashCode()}")
+    }
+
+    private fun applyStyle() {
+        val style = settingsRepository.settings.value.voiceStyle
+        val (rate, pitch) = when (style) {
+            "hero" -> 1.05f to 1.18f
+            "robot" -> 0.78f to 0.72f
+            else -> 0.88f to 1.0f
+        }
+        engine?.setSpeechRate(rate)
+        engine?.setPitch(pitch)
     }
 
     override fun stop() {

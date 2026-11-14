@@ -23,6 +23,7 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
         reduceMotion = prefs.getBoolean(KEY_REDUCE_MOTION, false),
         highContrast = prefs.getBoolean(KEY_HIGH_CONTRAST, false),
         roundsPerSession = prefs.getInt(KEY_ROUNDS, 10).coerceIn(1, 100),
+        voiceStyle = prefs.getString(KEY_VOICE_STYLE, "friendly") ?: "friendly",
     )
 
     override fun setVoice(enabled: Boolean) {
@@ -51,6 +52,11 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
         prefs.edit().putInt(KEY_ROUNDS, safe).apply()
     }
 
+    override fun setVoiceStyle(style: String) {
+        _settings.update { it.copy(voiceStyle = style) }
+        prefs.edit().putString(KEY_VOICE_STYLE, style).apply()
+    }
+
     private companion object {
         const val PREFS_NAME = "number_garden_settings"
         const val KEY_VOICE = "voice"
@@ -58,5 +64,6 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
         const val KEY_REDUCE_MOTION = "reduce_motion"
         const val KEY_HIGH_CONTRAST = "high_contrast"
         const val KEY_ROUNDS = "rounds_per_session"
+        const val KEY_VOICE_STYLE = "voice_style"
     }
 }

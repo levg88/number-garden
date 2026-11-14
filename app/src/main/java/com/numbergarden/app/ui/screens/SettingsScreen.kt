@@ -92,6 +92,11 @@ fun SettingsScreen(
                 onCheckedChange = container.settingsRepository::setHighContrast,
             )
 
+            VoiceStyleChoice(
+                value = settings.voiceStyle,
+                onChange = container.settingsRepository::setVoiceStyle,
+            )
+
             RoundsChoice(
                 value = settings.roundsPerSession,
                 onChange = container.settingsRepository::setRoundsPerSession,
@@ -248,6 +253,83 @@ private fun SettingSwitch(
                 onCheckedChange = null,
                 modifier = Modifier.clearAndSetSemantics {},
             )
+        }
+    }
+}
+
+@Composable
+private fun VoiceStyleChoice(
+    value: String,
+    onChange: (String) -> Unit,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Text(
+                text = stringResource(R.string.settings_voice_style),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = stringResource(R.string.settings_voice_style_hint),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                listOf("friendly", "hero", "robot").forEach { option ->
+                    val label = when (option) {
+                        "hero" -> stringResource(R.string.voice_style_hero)
+                        "robot" -> stringResource(R.string.voice_style_robot)
+                        else -> stringResource(R.string.voice_style_friendly)
+                    }
+                    val isSelected = value == option
+                    Surface(
+                        modifier = Modifier
+                            .weight(1f)
+                            .heightIn(min = 56.dp)
+                            .selectable(
+                                selected = isSelected,
+                                role = Role.RadioButton,
+                                onClick = { onChange(option) },
+                            )
+                            .semantics { selected = isSelected },
+                        shape = MaterialTheme.shapes.medium,
+                        color = if (isSelected) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.surface
+                        },
+                        border = BorderStroke(
+                            width = if (isSelected) 2.dp else 1.dp,
+                            color = if (isSelected) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                MaterialTheme.colorScheme.outlineVariant
+                            },
+                        ),
+                    ) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Text(
+                                text = label,
+                                style = MaterialTheme.typography.titleMedium,
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }

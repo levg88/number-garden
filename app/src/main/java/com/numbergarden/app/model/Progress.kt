@@ -7,7 +7,8 @@ data class AppSettings(
     val sound: Boolean = true,
     val reduceMotion: Boolean = false,
     val highContrast: Boolean = false,
-    val roundsPerSession: Int = 5,
+    val roundsPerSession: Int = 10,
+    val voiceStyle: String = "friendly",
 )
 
 interface SettingsRepository {
@@ -18,6 +19,7 @@ interface SettingsRepository {
     fun setReduceMotion(enabled: Boolean)
     fun setHighContrast(enabled: Boolean)
     fun setRoundsPerSession(rounds: Int)
+    fun setVoiceStyle(style: String)
 }
 
 enum class SessionKind {

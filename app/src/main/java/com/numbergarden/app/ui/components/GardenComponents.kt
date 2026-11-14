@@ -16,13 +16,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.width
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -278,6 +287,15 @@ fun AppleField(
     showSequenceHints: Boolean = false,
     onAppleClick: ((Int) -> Unit)? = null,
 ) {
+    var tappedIndex by remember { mutableIntStateOf(-1) }
+    val tapScale = remember { Animatable(1f) }
+    LaunchedEffect(tappedIndex) {
+        if (tappedIndex >= 0) {
+            tapScale.snapTo(1f)
+            tapScale.animateTo(1.18f, animationSpec = tween(120))
+            tapScale.animateTo(1f, animationSpec = tween(120))
+        }
+    }
     androidx.compose.foundation.layout.FlowRow(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -286,6 +304,7 @@ fun AppleField(
     ) {
         repeat(count) { index ->
             val ordinal = countedOrdinals.indexOf(index).takeIf { it >= 0 }?.plus(1)
+            val scale = if (index == tappedIndex) tapScale.value else 1f
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 AppleArt(
                     size = appleSize,
@@ -295,7 +314,13 @@ fun AppleField(
                     } else {
                         stringResource(R.string.cd_apple)
                     },
-                    onClick = onAppleClick?.let { click -> { click(index) } },
+                    onClick = onAppleClick?.let { click ->
+                        {
+                            tappedIndex = index
+                            click(index)
+                        }
+                    },
+                    modifier = Modifier.graphicsLayer(scaleX = scale, scaleY = scale),
                 )
                 if (showSequenceHints) {
                     Text(

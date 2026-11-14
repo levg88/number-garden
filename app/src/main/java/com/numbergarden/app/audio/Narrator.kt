@@ -40,7 +40,12 @@ class Narrator(
             if (released) return@TextToSpeech
             ready = status == TextToSpeech.SUCCESS
             if (ready) {
-                engine?.language = Locale.US
+                val languageResult = engine?.setLanguage(Locale.US) ?: TextToSpeech.LANG_NOT_SUPPORTED
+                if (languageResult == TextToSpeech.LANG_MISSING_DATA ||
+                    languageResult == TextToSpeech.LANG_NOT_SUPPORTED
+                ) {
+                    engine?.setLanguage(Locale.getDefault())
+                }
                 engine?.setSpeechRate(0.88f)
                 engine?.setPitch(1.0f)
                 engine?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {

@@ -168,7 +168,15 @@ spot-checked on target hardware.
 | CI | `.github/workflows/android.yml` |
 | Decisions | `docs/03-architecture/adr/0001`–`0008` |
 
-## 8. Working-tree notes
+## 8. Recent additions (after baseline)
+
+- Play hub with three new games: Match, Tap the number, Patterns.
+- Sound cues via `SoundEffects` (soft ack/prompt tones) plus a Settings "Test voice" button.
+- TTS now falls back to the device default locale when en-US is unavailable.
+- Lesson videos re-encoded to H.264 Constrained Baseline with fast-start; poster frames added.
+- Lesson player reports playback errors instead of hanging on black.
+
+## 9. Working-tree notes
 
 - The project was developed inside an OpenCode worktree. When this repository was created,
   the full tree (source, docs, media, wrapper) was copied without the host worktree's `.git`

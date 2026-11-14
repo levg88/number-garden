@@ -34,6 +34,9 @@ fun GamesScreen(
     onMatch: () -> Unit,
     onTapNumber: () -> Unit,
     onPattern: () -> Unit,
+    onAddition: () -> Unit,
+    onShapes: () -> Unit,
+    onMissing: () -> Unit,
     onBack: () -> Unit,
     onHome: () -> Unit,
 ) {
@@ -65,6 +68,21 @@ fun GamesScreen(
                 subtitle = stringResource(R.string.pattern_hint),
                 onClick = onPattern,
             ) { CountArt() }
+            GameCard(
+                title = stringResource(R.string.addition_title),
+                subtitle = stringResource(R.string.addition_hint),
+                onClick = onAddition,
+            ) { CountArt() }
+            GameCard(
+                title = stringResource(R.string.shapes_title),
+                subtitle = stringResource(R.string.shapes_hint),
+                onClick = onShapes,
+            ) { NumbersArt() }
+            GameCard(
+                title = stringResource(R.string.missing_title),
+                subtitle = stringResource(R.string.missing_hint),
+                onClick = onMissing,
+            ) { NumbersArt() }
             Spacer(Modifier.height(8.dp))
         }
     }

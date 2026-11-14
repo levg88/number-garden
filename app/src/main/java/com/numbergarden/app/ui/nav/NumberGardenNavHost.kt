@@ -12,8 +12,11 @@ import com.numbergarden.app.di.AppContainer
 import com.numbergarden.app.ui.screens.CompareScreen
 import com.numbergarden.app.ui.screens.CountingScreen
 import com.numbergarden.app.ui.screens.GamesScreen
+import com.numbergarden.app.ui.screens.AdditionScreen
 import com.numbergarden.app.ui.screens.MatchScreen
+import com.numbergarden.app.ui.screens.MissingScreen
 import com.numbergarden.app.ui.screens.PatternScreen
+import com.numbergarden.app.ui.screens.ShapesScreen
 import com.numbergarden.app.ui.screens.TapNumberScreen
 import com.numbergarden.app.ui.screens.GardenScreen
 import com.numbergarden.app.ui.screens.GrownUpsGateScreen
@@ -33,6 +36,9 @@ private object Routes {
     const val MATCH = "match"
     const val TAP_NUMBER = "tapnumber"
     const val PATTERN = "pattern"
+    const val ADDITION = "addition"
+    const val SHAPES = "shapes"
+    const val MISSING = "missing"
     const val GARDEN = "garden"
     const val GATE = "grownups"
     const val SETTINGS = "settings"
@@ -111,6 +117,9 @@ fun NumberGardenNavHost(container: AppContainer) {
                 onMatch = { navController.navigate(Routes.MATCH) },
                 onTapNumber = { navController.navigate(Routes.TAP_NUMBER) },
                 onPattern = { navController.navigate(Routes.PATTERN) },
+                onAddition = { navController.navigate(Routes.ADDITION) },
+                onShapes = { navController.navigate(Routes.SHAPES) },
+                onMissing = { navController.navigate(Routes.MISSING) },
                 onBack = { navController.popBackStack() },
                 onHome = goHome,
             )
@@ -126,6 +135,18 @@ fun NumberGardenNavHost(container: AppContainer) {
 
         composable(Routes.PATTERN) {
             PatternScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.ADDITION) {
+            AdditionScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.SHAPES) {
+            ShapesScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.MISSING) {
+            MissingScreen(container = container, onHome = goHome)
         }
 
         composable(Routes.GARDEN) {

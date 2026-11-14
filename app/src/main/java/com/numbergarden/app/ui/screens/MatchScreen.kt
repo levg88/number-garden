@@ -38,6 +38,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -57,6 +60,7 @@ import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
 import com.numbergarden.app.ui.components.GardenScaffold
 import com.numbergarden.app.ui.components.NumberButton
+import com.numbergarden.app.ui.components.rememberMotionAllowed
 import com.numbergarden.app.util.numberWord
 
 @Composable
@@ -102,6 +106,17 @@ private fun MatchReadyScreen(
     onHome: () -> Unit,
 ) {
     val game = ui.game
+    val motionAllowed = rememberMotionAllowed(settings.reduceMotion)
+    val correctScale = remember(ui.sessionId, game.index) { Animatable(1f) }
+    LaunchedEffect(game.phase) {
+        if (game.phase == CountPhase.CORRECT && motionAllowed) {
+            correctScale.snapTo(1f)
+            correctScale.animateTo(1.08f, animationSpec = tween(180))
+            correctScale.animateTo(1f, animationSpec = tween(180))
+        } else {
+            correctScale.snapTo(1f)
+        }
+    }
     if (game.completed) {
         SessionCompletionScreen(
             title = stringResource(R.string.match_title),
@@ -200,7 +215,12 @@ private fun MatchReadyScreen(
                         onClick = { onChoose(option) },
                         enabled = game.phase == CountPhase.ASK,
                         emphasized = game.selected == option && game.phase != CountPhase.ASK,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .graphicsLayer(
+                                scaleX = if (game.selected == option && game.phase == CountPhase.CORRECT) correctScale.value else 1f,
+                                scaleY = if (game.selected == option && game.phase == CountPhase.CORRECT) correctScale.value else 1f,
+                            ),
                     )
                 }
             }

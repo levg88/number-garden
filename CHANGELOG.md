@@ -44,8 +44,10 @@ First MVP, implemented in this repository. Not yet device-verified and not relea
 
 ### Added
 
-- Three new calm games in a new Play area: Match (quantity to numeral), Tap the number
-  (audio-first numeral choice), and Patterns (what comes next).
+- Six calm games in a new Play area: Match, Tap the number, Patterns, Add, Shapes, and
+  Missing number.
+- Gentle motion: completion flower bloom, button pulse on correct answers, respecting
+  reduce-motion and system animation settings.
 - Play hub on Home with game cards.
 - Baseline-profile, fast-start lesson videos for broader device compatibility, plus poster
   frames so the player is never a black box before playback.

@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +48,7 @@ import com.numbergarden.app.ui.components.ContentErrorScreen
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
 import com.numbergarden.app.ui.components.GardenScaffold
+import com.numbergarden.app.ui.components.rememberMotionAllowed
 import com.numbergarden.app.ui.components.SessionCompletionScreen
 
 @Composable
@@ -88,6 +93,17 @@ private fun PatternReadyScreen(
     onHome: () -> Unit,
 ) {
     val game = ui.game
+    val motionAllowed = rememberMotionAllowed(settings.reduceMotion)
+    val correctScale = remember(ui.sessionId, game.index) { Animatable(1f) }
+    LaunchedEffect(game.phase) {
+        if (game.phase == PatternPhase.CORRECT && motionAllowed) {
+            correctScale.snapTo(1f)
+            correctScale.animateTo(1.08f, animationSpec = tween(180))
+            correctScale.animateTo(1f, animationSpec = tween(180))
+        } else {
+            correctScale.snapTo(1f)
+        }
+    }
     if (game.completed) {
         SessionCompletionScreen(
             title = stringResource(R.string.pattern_title),
@@ -185,7 +201,12 @@ private fun PatternReadyScreen(
                         onClick = { onChoose(option) },
                         enabled = game.phase == PatternPhase.ASK,
                         emphasized = game.selected == option && game.phase != PatternPhase.ASK,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .graphicsLayer(
+                                scaleX = if (game.selected == option && game.phase == PatternPhase.CORRECT) correctScale.value else 1f,
+                                scaleY = if (game.selected == option && game.phase == PatternPhase.CORRECT) correctScale.value else 1f,
+                            ),
                     )
                 }
             }
@@ -242,7 +263,7 @@ private fun ShapeBadge(value: Int) {
 }
 
 @Composable
-private fun ShapeChoiceButton(
+fun ShapeChoiceButton(
     value: Int,
     onClick: () -> Unit,
     enabled: Boolean,

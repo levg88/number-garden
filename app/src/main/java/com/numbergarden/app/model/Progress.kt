@@ -26,6 +26,9 @@ enum class SessionKind {
     MATCH,
     TAP_NUMBER,
     PATTERN,
+    ADDITION,
+    SHAPES,
+    MISSING,
 }
 
 data class Progress(
@@ -35,9 +38,13 @@ data class Progress(
     val matchSessions: Int = 0,
     val tapNumberSessions: Int = 0,
     val patternSessions: Int = 0,
+    val additionSessions: Int = 0,
+    val shapesSessions: Int = 0,
+    val missingSessions: Int = 0,
 ) {
     val totalSessions: Int get() =
-        countingSessions + compareSessions + matchSessions + tapNumberSessions + patternSessions
+        countingSessions + compareSessions + matchSessions + tapNumberSessions + patternSessions +
+            additionSessions + shapesSessions + missingSessions
 
     /** The garden is deliberately finite and never resets on its own. */
     val blooms: Int get() = totalSessions.coerceAtMost(MAX_BLOOMS)

@@ -25,6 +25,9 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         matchSessions = prefs.getInt(KEY_MATCH, 0).coerceAtLeast(0),
         tapNumberSessions = prefs.getInt(KEY_TAP, 0).coerceAtLeast(0),
         patternSessions = prefs.getInt(KEY_PATTERN, 0).coerceAtLeast(0),
+        additionSessions = prefs.getInt(KEY_ADDITION, 0).coerceAtLeast(0),
+        shapesSessions = prefs.getInt(KEY_SHAPES, 0).coerceAtLeast(0),
+        missingSessions = prefs.getInt(KEY_MISSING, 0).coerceAtLeast(0),
     )
 
     override fun markLessonWatched(lessonId: String) {
@@ -49,6 +52,9 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
                 SessionKind.MATCH -> current.copy(matchSessions = current.matchSessions + 1)
                 SessionKind.TAP_NUMBER -> current.copy(tapNumberSessions = current.tapNumberSessions + 1)
                 SessionKind.PATTERN -> current.copy(patternSessions = current.patternSessions + 1)
+                SessionKind.ADDITION -> current.copy(additionSessions = current.additionSessions + 1)
+                SessionKind.SHAPES -> current.copy(shapesSessions = current.shapesSessions + 1)
+                SessionKind.MISSING -> current.copy(missingSessions = current.missingSessions + 1)
             }
         }
         val value = _progress.value
@@ -58,6 +64,9 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
             .putInt(KEY_MATCH, value.matchSessions)
             .putInt(KEY_TAP, value.tapNumberSessions)
             .putInt(KEY_PATTERN, value.patternSessions)
+            .putInt(KEY_ADDITION, value.additionSessions)
+            .putInt(KEY_SHAPES, value.shapesSessions)
+            .putInt(KEY_MISSING, value.missingSessions)
             .apply()
     }
 
@@ -74,5 +83,8 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         const val KEY_MATCH = "match_sessions"
         const val KEY_TAP = "tap_number_sessions"
         const val KEY_PATTERN = "pattern_sessions"
+        const val KEY_ADDITION = "addition_sessions"
+        const val KEY_SHAPES = "shapes_sessions"
+        const val KEY_MISSING = "missing_sessions"
     }
 }

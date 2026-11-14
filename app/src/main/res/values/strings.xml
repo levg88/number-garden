@@ -102,6 +102,30 @@
     <string name="pattern_this_is">It is %1$s.</string>
     <string name="pattern_apple">apple</string>
     <string name="pattern_flower">flower</string>
+
+    <string name="addition_title">Add</string>
+    <string name="addition_prompt">How many in all?</string>
+    <string name="addition_hint">Count both groups.</string>
+    <string name="addition_correct">Yes. %1$s.</string>
+    <string name="addition_this_is">This is %1$s.</string>
+
+    <string name="shapes_title">Shapes</string>
+    <string name="shapes_prompt">Which shape matches?</string>
+    <string name="shapes_hint">Look closely.</string>
+    <string name="shapes_correct">Yes.</string>
+    <string name="shapes_this_is">This is it.</string>
+    <string name="shape_circle">circle</string>
+    <string name="shape_square">square</string>
+    <string name="shape_triangle">triangle</string>
+    <string name="cd_circle">Circle</string>
+    <string name="cd_square">Square</string>
+    <string name="cd_triangle">Triangle</string>
+
+    <string name="missing_title">Missing number</string>
+    <string name="missing_prompt">What number is missing?</string>
+    <string name="missing_hint">Count along.</string>
+    <string name="missing_correct">Yes. %1$s.</string>
+    <string name="missing_this_is">This is %1$s.</string>
     <string name="cd_apple_shape">Apple</string>
     <string name="cd_flower_shape">Flower</string>
 

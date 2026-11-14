@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "lessons": [
+    {
+      "id": "count_to_3",
+      "title": "Count to 3",
+      "skill": "counting",
+      "video": "videos/count_to_3.mp4",
+      "summary": "Watch one, two, three apples.",
+      "durationSec": 26,
+      "captions": [
+        { "atMs": 3000, "text": "One apple." },
+        { "atMs": 8500, "text": "Two apples." },
+        { "atMs": 14000, "text": "Three apples." },
+        { "atMs": 19500, "text": "Three apples in all." }
+      ]
+    },
+    {
+      "id": "more_and_less",
+      "title": "More and less",
+      "skill": "comparing",
+      "video": "videos/more_and_less.mp4",
+      "summary": "See which group has more.",
+      "durationSec": 28,
+      "captions": [
+        { "atMs": 3000, "text": "Which group has more?" },
+        { "atMs": 9000, "text": "Three is more than one." },
+        { "atMs": 15000, "text": "One is fewer than three." },
+        { "atMs": 21000, "text": "Four is more than two." }
+      ]
+    }
+  ],
+  "numberCards": [
+    { "value": 1, "word": "one", "narration": "One. One apple." },
+    { "value": 2, "word": "two", "narration": "Two. Two apples." },
+    { "value": 3, "word": "three", "narration": "Three. Three apples." },
+    { "value": 4, "word": "four", "narration": "Four. Four apples." },
+    { "value": 5, "word": "five", "narration": "Five. Five apples." },
+    { "value": 6, "word": "six", "narration": "Six. Six apples." },
+    { "value": 7, "word": "seven", "narration": "Seven. Seven apples." },
+    { "value": 8, "word": "eight", "narration": "Eight. Eight apples." },
+    { "value": 9, "word": "nine", "narration": "Nine. Nine apples." },
+    { "value": 10, "word": "ten", "narration": "Ten. Ten apples." }
+  ],
+  "countingValues": [3, 2, 4, 1, 5, 3, 2, 4, 5, 1],
+  "compareRounds": [
+    { "left": 3, "right": 1, "target": "MORE" },
+    { "left": 1, "right": 3, "target": "FEWER" },
+    { "left": 2, "right": 4, "target": "MORE" },
+    { "left": 5, "right": 2, "target": "FEWER" },
+    { "left": 4, "right": 2, "target": "MORE" },
+    { "left": 3, "right": 5, "target": "FEWER" },
+    { "left": 5, "right": 4, "target": "MORE" },
+    { "left": 2, "right": 3, "target": "FEWER" },
+    { "left": 4, "right": 1, "target": "MORE" },
+    { "left": 1, "right": 2, "target": "FEWER" }
+  ],
+  "maxSessionRounds": 5,
+  "optionCount": 3
+}

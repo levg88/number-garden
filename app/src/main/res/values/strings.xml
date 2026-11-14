@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Number Garden</string>
+    <string name="app_tagline">A calm place to grow with numbers.</string>
+
+    <string name="home_greeting">Let\'s play.</string>
+    <string name="home_subtitle">Choose one thing.</string>
+    <string name="home_watch">Watch</string>
+    <string name="home_watch_hint">Short videos</string>
+    <string name="home_count">Count</string>
+    <string name="home_count_hint">Count apples</string>
+    <string name="home_compare">Compare</string>
+    <string name="home_compare_hint">More or fewer</string>
+    <string name="home_numbers">Numbers</string>
+    <string name="home_numbers_hint">1 to 10</string>
+    <string name="home_garden">My garden</string>
+    <string name="home_garden_hint">See what you grew</string>
+    <string name="grown_ups">Grown-ups</string>
+    <string name="grown_ups_hint">Settings and privacy</string>
+    <string name="back">Back</string>
+    <string name="home">Home</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_home">Home</string>
+
+    <string name="watch_title">Watch</string>
+    <string name="watch_subtitle">Choose a short video.</string>
+    <string name="watch_watched">Watched</string>
+    <string name="watch_seconds">%1$d sec</string>
+    <string name="watch_no_lessons">No videos yet.</string>
+    <string name="watch_card_cd">%1$s. %2$s. %3$d seconds.</string>
+    <string name="lesson_captions">Captions</string>
+    <string name="lesson_play">Play</string>
+    <string name="lesson_pause">Pause</string>
+    <string name="lesson_replay">Play again</string>
+    <string name="lesson_back_to_videos">Back to videos</string>
+    <string name="lesson_the_end">The end.</string>
+    <string name="lesson_video_missing">This video is not ready.</string>
+    <string name="lesson_loading">Getting the video ready…</string>
+    <string name="lesson_caption_empty"> </string>
+    <string name="cd_play">Play video</string>
+    <string name="cd_pause">Pause video</string>
+    <string name="cd_replay">Play again</string>
+
+    <string name="count_title">Count</string>
+    <string name="count_prompt">How many apples?</string>
+    <string name="count_tap_hint">Tap each apple to count.</string>
+    <string name="count_hint">Let\'s count together.</string>
+    <string name="count_correct">Yes. %1$s apples.</string>
+    <string name="count_try_again">Let\'s look again.</string>
+    <string name="count_this_is">This is %1$s.</string>
+    <string name="count_next">Next</string>
+    <string name="count_finish">Finish</string>
+    <string name="count_progress">%1$d of %2$d</string>
+    <string name="count_grew_flower">Your garden grew a flower.</string>
+    <string name="count_session_done">You did it.</string>
+    <string name="count_play_again">Play again</string>
+    <string name="count_back_home">Back home</string>
+    <string name="cd_apple">Apple</string>
+    <string name="cd_counted_apple">Apple %1$d</string>
+    <string name="cd_choose_number">Choose %1$d</string>
+
+    <string name="compare_title">Compare</string>
+    <string name="compare_prompt_more">Which group has more?</string>
+    <string name="compare_prompt_fewer">Which group has fewer?</string>
+    <string name="compare_more">More</string>
+    <string name="compare_fewer">Fewer</string>
+    <string name="compare_correct_more">Yes. %1$s is more than %2$s.</string>
+    <string name="compare_correct_fewer">Yes. %1$s is fewer than %2$s.</string>
+    <string name="compare_teach_more">This group. %1$s is more than %2$s.</string>
+    <string name="compare_teach_fewer">This group. %1$s is fewer than %2$s.</string>
+    <string name="compare_try_again">Let\'s look again.</string>
+    <string name="compare_this_group">This group.</string>
+    <string name="compare_hint">Match one to one.</string>
+    <plurals name="compare_group_cd">
+        <item quantity="one">Group %1$d. %2$d apple.</item>
+        <item quantity="other">Group %1$d. %2$d apples.</item>
+    </plurals>
+    <string name="cd_choose_group">Choose this group</string>
+
+    <string name="numbers_title">Numbers</string>
+    <string name="numbers_say_again">Say it again</string>
+    <string name="numbers_tap">Tap a number to hear it.</string>
+    <string name="numbers_card_cd">%1$d. %2$s.</string>
+    <string name="cd_speaker">Hear it again</string>
+    <string name="numbers_previous">Previous</string>
+    <string name="numbers_next">Next</string>
+
+    <string name="garden_title">My garden</string>
+    <string name="garden_empty">Your garden is waiting.</string>
+    <string name="garden_full">Your garden is full. You can still play.</string>
+    <string name="garden_progress">%1$d of %2$d</string>
+    <plurals name="garden_flowers">
+        <item quantity="one">%1$d flower</item>
+        <item quantity="other">%1$d flowers</item>
+    </plurals>
+
+    <string name="grownups_title">For grown-ups</string>
+    <string name="grownups_intro">This area is for a grown-up.</string>
+    <string name="grownups_hold">Press and hold for 3 seconds.</string>
+    <string name="grownups_holding">Keep holding…</string>
+    <string name="grownups_question">Grown-up check: what is %1$d + %2$d?</string>
+    <string name="grownups_wrong">Not quite. Try again.</string>
+    <string name="grownups_continue">Continue</string>
+    <string name="grownups_use_question">Use the grown-up question</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_voice">Voice narration</string>
+    <string name="settings_voice_hint">Speaks instructions and video captions.</string>
+    <string name="settings_sound">Gentle sounds</string>
+    <string name="settings_sound_hint">Soft chimes and video sound.</string>
+    <string name="settings_motion">Reduce motion</string>
+    <string name="settings_motion_hint">Turns off growing and fading animations.</string>
+    <string name="settings_contrast">High contrast</string>
+    <string name="settings_contrast_hint">Stronger colors and outlines.</string>
+    <string name="settings_rounds">Activities per session</string>
+    <string name="settings_rounds_hint">Fewer rounds make a shorter session.</string>
+    <string name="settings_rounds_value">%1$d rounds</string>
+    <string name="settings_reset">Reset progress</string>
+    <string name="settings_reset_hint">Removes watched videos and flowers.</string>
+    <string name="settings_reset_title">Reset all progress?</string>
+    <string name="settings_reset_body">This cannot be undone.</string>
+    <string name="settings_privacy_title">Privacy</string>
+    <string name="settings_privacy_body">Number Garden works fully offline. The app has no internet permission, no ads, no accounts, and no analytics. Progress stays on this device. Video narration uses your device\'s text-to-speech voice; choose an offline voice in system settings if you prefer.</string>
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_body">Number Garden 0.1 (MVP). Made for calm, self-paced early math practice. It is not a medical or diagnostic tool.</string>
+    <string name="settings_about_license">Code: MIT. Artwork and videos: CC BY-NC 4.0. See the repository for details.</string>
+    <string name="settings_saved">Settings save automatically.</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
+
+    <string name="content_error_title">Content could not load</string>
+    <string name="content_error_body">Please reinstall the app. No data has left this device.</string>
+    <string name="retry">Try again</string>
+</resources>

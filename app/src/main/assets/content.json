@@ -9,10 +9,22 @@
       "summary": "Watch one, two, three apples.",
       "durationSec": 26,
       "captions": [
-        { "atMs": 3000, "text": "One apple." },
-        { "atMs": 8500, "text": "Two apples." },
-        { "atMs": 14000, "text": "Three apples." },
-        { "atMs": 19500, "text": "Three apples in all." }
+        {
+          "atMs": 3000,
+          "text": "One apple."
+        },
+        {
+          "atMs": 8500,
+          "text": "Two apples."
+        },
+        {
+          "atMs": 14000,
+          "text": "Three apples."
+        },
+        {
+          "atMs": 19500,
+          "text": "Three apples in all."
+        }
       ]
     },
     {
@@ -23,38 +35,221 @@
       "summary": "See which group has more.",
       "durationSec": 28,
       "captions": [
-        { "atMs": 3000, "text": "Which group has more?" },
-        { "atMs": 9000, "text": "Three is more than one." },
-        { "atMs": 15000, "text": "One is fewer than three." },
-        { "atMs": 21000, "text": "Four is more than two." }
+        {
+          "atMs": 3000,
+          "text": "Which group has more?"
+        },
+        {
+          "atMs": 9000,
+          "text": "Three is more than one."
+        },
+        {
+          "atMs": 15000,
+          "text": "One is fewer than three."
+        },
+        {
+          "atMs": 21000,
+          "text": "Four is more than two."
+        }
       ]
     }
   ],
   "numberCards": [
-    { "value": 1, "word": "one", "narration": "One. One apple." },
-    { "value": 2, "word": "two", "narration": "Two. Two apples." },
-    { "value": 3, "word": "three", "narration": "Three. Three apples." },
-    { "value": 4, "word": "four", "narration": "Four. Four apples." },
-    { "value": 5, "word": "five", "narration": "Five. Five apples." },
-    { "value": 6, "word": "six", "narration": "Six. Six apples." },
-    { "value": 7, "word": "seven", "narration": "Seven. Seven apples." },
-    { "value": 8, "word": "eight", "narration": "Eight. Eight apples." },
-    { "value": 9, "word": "nine", "narration": "Nine. Nine apples." },
-    { "value": 10, "word": "ten", "narration": "Ten. Ten apples." }
+    {
+      "value": 1,
+      "word": "one",
+      "narration": "One. One apple."
+    },
+    {
+      "value": 2,
+      "word": "two",
+      "narration": "Two. Two apples."
+    },
+    {
+      "value": 3,
+      "word": "three",
+      "narration": "Three. Three apples."
+    },
+    {
+      "value": 4,
+      "word": "four",
+      "narration": "Four. Four apples."
+    },
+    {
+      "value": 5,
+      "word": "five",
+      "narration": "Five. Five apples."
+    },
+    {
+      "value": 6,
+      "word": "six",
+      "narration": "Six. Six apples."
+    },
+    {
+      "value": 7,
+      "word": "seven",
+      "narration": "Seven. Seven apples."
+    },
+    {
+      "value": 8,
+      "word": "eight",
+      "narration": "Eight. Eight apples."
+    },
+    {
+      "value": 9,
+      "word": "nine",
+      "narration": "Nine. Nine apples."
+    },
+    {
+      "value": 10,
+      "word": "ten",
+      "narration": "Ten. Ten apples."
+    }
   ],
-  "countingValues": [3, 2, 4, 1, 5, 3, 2, 4, 5, 1],
+  "countingValues": [
+    1,
+    1,
+    2,
+    2,
+    3,
+    3,
+    4,
+    4,
+    5,
+    5,
+    6,
+    6,
+    7,
+    7,
+    8,
+    8,
+    9,
+    9,
+    10,
+    10
+  ],
   "compareRounds": [
-    { "left": 3, "right": 1, "target": "MORE" },
-    { "left": 1, "right": 3, "target": "FEWER" },
-    { "left": 2, "right": 4, "target": "MORE" },
-    { "left": 5, "right": 2, "target": "FEWER" },
-    { "left": 4, "right": 2, "target": "MORE" },
-    { "left": 3, "right": 5, "target": "FEWER" },
-    { "left": 5, "right": 4, "target": "MORE" },
-    { "left": 2, "right": 3, "target": "FEWER" },
-    { "left": 4, "right": 1, "target": "MORE" },
-    { "left": 1, "right": 2, "target": "FEWER" }
+    {
+      "left": 2,
+      "right": 1,
+      "target": "FEWER"
+    },
+    {
+      "left": 4,
+      "right": 3,
+      "target": "MORE"
+    },
+    {
+      "left": 9,
+      "right": 2,
+      "target": "FEWER"
+    },
+    {
+      "left": 1,
+      "right": 2,
+      "target": "MORE"
+    },
+    {
+      "left": 4,
+      "right": 9,
+      "target": "MORE"
+    },
+    {
+      "left": 9,
+      "right": 4,
+      "target": "FEWER"
+    },
+    {
+      "left": 4,
+      "right": 8,
+      "target": "FEWER"
+    },
+    {
+      "left": 1,
+      "right": 3,
+      "target": "FEWER"
+    },
+    {
+      "left": 6,
+      "right": 5,
+      "target": "MORE"
+    },
+    {
+      "left": 4,
+      "right": 6,
+      "target": "MORE"
+    },
+    {
+      "left": 2,
+      "right": 7,
+      "target": "MORE"
+    },
+    {
+      "left": 6,
+      "right": 10,
+      "target": "FEWER"
+    },
+    {
+      "left": 1,
+      "right": 8,
+      "target": "MORE"
+    },
+    {
+      "left": 7,
+      "right": 2,
+      "target": "FEWER"
+    },
+    {
+      "left": 10,
+      "right": 6,
+      "target": "MORE"
+    },
+    {
+      "left": 2,
+      "right": 1,
+      "target": "MORE"
+    },
+    {
+      "left": 5,
+      "right": 2,
+      "target": "MORE"
+    },
+    {
+      "left": 2,
+      "right": 7,
+      "target": "FEWER"
+    },
+    {
+      "left": 8,
+      "right": 6,
+      "target": "MORE"
+    },
+    {
+      "left": 6,
+      "right": 4,
+      "target": "FEWER"
+    },
+    {
+      "left": 2,
+      "right": 10,
+      "target": "MORE"
+    },
+    {
+      "left": 9,
+      "right": 4,
+      "target": "MORE"
+    },
+    {
+      "left": 8,
+      "right": 7,
+      "target": "FEWER"
+    },
+    {
+      "left": 9,
+      "right": 4,
+      "target": "FEWER"
+    }
   ],
-  "maxSessionRounds": 5,
+  "maxSessionRounds": 100,
   "optionCount": 3
 }

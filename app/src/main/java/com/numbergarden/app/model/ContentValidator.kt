@@ -49,7 +49,7 @@ object ContentValidator {
         if (pack.countingValues.any { it !in 1..10 }) {
             add("countingValues must be between 1 and 10")
         }
-        if (pack.maxSessionRounds !in 1..10) add("maxSessionRounds must be 1..10")
+        if (pack.maxSessionRounds !in 1..100) add("maxSessionRounds must be 1..100")
         if (pack.optionCount !in 2..4) add("optionCount must be 2..4")
 
         if (pack.compareRounds.isEmpty()) add("compareRounds cannot be empty")

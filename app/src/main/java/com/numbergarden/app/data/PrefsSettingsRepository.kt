@@ -22,7 +22,7 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
         sound = prefs.getBoolean(KEY_SOUND, true),
         reduceMotion = prefs.getBoolean(KEY_REDUCE_MOTION, false),
         highContrast = prefs.getBoolean(KEY_HIGH_CONTRAST, false),
-        roundsPerSession = prefs.getInt(KEY_ROUNDS, 5).coerceIn(1, 5),
+        roundsPerSession = prefs.getInt(KEY_ROUNDS, 10).coerceIn(1, 100),
     )
 
     override fun setVoice(enabled: Boolean) {
@@ -46,7 +46,7 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
     }
 
     override fun setRoundsPerSession(rounds: Int) {
-        val safe = rounds.coerceIn(1, 5)
+        val safe = rounds.coerceIn(1, 100)
         _settings.update { it.copy(roundsPerSession = safe) }
         prefs.edit().putInt(KEY_ROUNDS, safe).apply()
     }

@@ -281,7 +281,7 @@ private fun RoundsChoice(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                listOf(3, 5).forEach { option ->
+                listOf(5, 10, 25).forEach { option ->
                     val isSelected = value == option
                     Surface(
                         modifier = Modifier

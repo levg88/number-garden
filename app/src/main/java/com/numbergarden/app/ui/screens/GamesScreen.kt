@@ -37,6 +37,7 @@ fun GamesScreen(
     onAddition: () -> Unit,
     onShapes: () -> Unit,
     onMissing: () -> Unit,
+    onMath: () -> Unit,
     onBack: () -> Unit,
     onHome: () -> Unit,
 ) {
@@ -82,6 +83,11 @@ fun GamesScreen(
                 title = stringResource(R.string.missing_title),
                 subtitle = stringResource(R.string.missing_hint),
                 onClick = onMissing,
+            ) { NumbersArt() }
+            GameCard(
+                title = stringResource(R.string.math_title),
+                subtitle = stringResource(R.string.math_hint),
+                onClick = onMath,
             ) { NumbersArt() }
             Spacer(Modifier.height(8.dp))
         }

@@ -126,6 +126,14 @@
     <string name="missing_hint">Count along.</string>
     <string name="missing_correct">Yes. %1$s.</string>
     <string name="missing_this_is">This is %1$s.</string>
+
+    <string name="math_title">Math</string>
+    <string name="math_prompt">What is the answer?</string>
+    <string name="math_hint">Count to help.</string>
+    <string name="math_correct">Yes. %1$s.</string>
+    <string name="math_this_is">This is %1$s.</string>
+    <string name="math_plus">+</string>
+    <string name="math_minus">−</string>
     <string name="cd_apple_shape">Apple</string>
     <string name="cd_flower_shape">Flower</string>
 

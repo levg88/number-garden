@@ -14,6 +14,7 @@ import com.numbergarden.app.ui.screens.CountingScreen
 import com.numbergarden.app.ui.screens.GamesScreen
 import com.numbergarden.app.ui.screens.AdditionScreen
 import com.numbergarden.app.ui.screens.MatchScreen
+import com.numbergarden.app.ui.screens.MathScreen
 import com.numbergarden.app.ui.screens.MissingScreen
 import com.numbergarden.app.ui.screens.PatternScreen
 import com.numbergarden.app.ui.screens.ShapesScreen
@@ -39,6 +40,7 @@ private object Routes {
     const val ADDITION = "addition"
     const val SHAPES = "shapes"
     const val MISSING = "missing"
+    const val MATH = "math"
     const val GARDEN = "garden"
     const val GATE = "grownups"
     const val SETTINGS = "settings"
@@ -120,6 +122,7 @@ fun NumberGardenNavHost(container: AppContainer) {
                 onAddition = { navController.navigate(Routes.ADDITION) },
                 onShapes = { navController.navigate(Routes.SHAPES) },
                 onMissing = { navController.navigate(Routes.MISSING) },
+                onMath = { navController.navigate(Routes.MATH) },
                 onBack = { navController.popBackStack() },
                 onHome = goHome,
             )
@@ -147,6 +150,10 @@ fun NumberGardenNavHost(container: AppContainer) {
 
         composable(Routes.MISSING) {
             MissingScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.MATH) {
+            MathScreen(container = container, onHome = goHome)
         }
 
         composable(Routes.GARDEN) {

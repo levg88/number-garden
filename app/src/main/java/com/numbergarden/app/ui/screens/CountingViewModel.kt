@@ -20,6 +20,7 @@ class CountingViewModel(
     private val contentRepository: ContentRepository,
     private val progressRepository: ProgressRepository,
     private val settingsRepository: SettingsRepository,
+    private val sessionKind: SessionKind = SessionKind.COUNTING,
 ) : ViewModel() {
 
     data class Ui(
@@ -56,7 +57,7 @@ class CountingViewModel(
         val nextGame = CountingSession.next(current.ui.game)
         if (nextGame.completed && !recorded) {
             recorded = true
-            progressRepository.recordSession(SessionKind.COUNTING)
+            progressRepository.recordSession(sessionKind)
         }
         _state.value = current.copy(ui = current.ui.copy(game = nextGame))
     }
@@ -94,12 +95,13 @@ class CountingViewModel(
     }
 
     companion object {
-        fun factory(container: AppContainer): ViewModelProvider.Factory = viewModelFactory {
+        fun factory(container: AppContainer, kind: SessionKind = SessionKind.COUNTING): ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 CountingViewModel(
                     contentRepository = container.contentRepository,
                     progressRepository = container.progressRepository,
                     settingsRepository = container.settingsRepository,
+                    sessionKind = kind,
                 )
             }
         }

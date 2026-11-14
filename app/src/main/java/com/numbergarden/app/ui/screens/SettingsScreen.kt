@@ -50,6 +50,7 @@ fun SettingsScreen(
 ) {
     val settings by container.settingsRepository.settings.collectAsStateWithLifecycle()
     val speech = LocalSpeech.current
+    val testVoiceSample = stringResource(R.string.settings_test_voice_sample)
     var showReset by remember { mutableStateOf(false) }
 
     GardenScaffold(
@@ -95,6 +96,35 @@ fun SettingsScreen(
                 value = settings.roundsPerSession,
                 onChange = container.settingsRepository::setRoundsPerSession,
             )
+
+            Surface(
+                shape = MaterialTheme.shapes.large,
+                color = MaterialTheme.colorScheme.surface,
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    Text(
+                        text = stringResource(R.string.settings_test_voice),
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                    )
+                    Text(
+                        text = stringResource(R.string.settings_test_voice_hint),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                    GardenButton(
+                        text = stringResource(R.string.settings_test_voice),
+                        onClick = { speech.say(testVoiceSample) },
+                        primary = false,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            }
 
             Surface(
                 shape = MaterialTheme.shapes.large,

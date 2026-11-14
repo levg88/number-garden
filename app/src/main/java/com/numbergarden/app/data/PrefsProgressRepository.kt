@@ -22,6 +22,9 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         completedLessons = prefs.getStringSet(KEY_LESSONS, emptySet())?.toSet().orEmpty(),
         countingSessions = prefs.getInt(KEY_COUNTING, 0).coerceAtLeast(0),
         compareSessions = prefs.getInt(KEY_COMPARE, 0).coerceAtLeast(0),
+        matchSessions = prefs.getInt(KEY_MATCH, 0).coerceAtLeast(0),
+        tapNumberSessions = prefs.getInt(KEY_TAP, 0).coerceAtLeast(0),
+        patternSessions = prefs.getInt(KEY_PATTERN, 0).coerceAtLeast(0),
     )
 
     override fun markLessonWatched(lessonId: String) {
@@ -43,12 +46,18 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
             when (kind) {
                 SessionKind.COUNTING -> current.copy(countingSessions = current.countingSessions + 1)
                 SessionKind.COMPARE -> current.copy(compareSessions = current.compareSessions + 1)
+                SessionKind.MATCH -> current.copy(matchSessions = current.matchSessions + 1)
+                SessionKind.TAP_NUMBER -> current.copy(tapNumberSessions = current.tapNumberSessions + 1)
+                SessionKind.PATTERN -> current.copy(patternSessions = current.patternSessions + 1)
             }
         }
         val value = _progress.value
         prefs.edit()
             .putInt(KEY_COUNTING, value.countingSessions)
             .putInt(KEY_COMPARE, value.compareSessions)
+            .putInt(KEY_MATCH, value.matchSessions)
+            .putInt(KEY_TAP, value.tapNumberSessions)
+            .putInt(KEY_PATTERN, value.patternSessions)
             .apply()
     }
 
@@ -62,5 +71,8 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         const val KEY_LESSONS = "completed_lessons"
         const val KEY_COUNTING = "counting_sessions"
         const val KEY_COMPARE = "compare_sessions"
+        const val KEY_MATCH = "match_sessions"
+        const val KEY_TAP = "tap_number_sessions"
+        const val KEY_PATTERN = "pattern_sessions"
     }
 }

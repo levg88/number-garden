@@ -77,6 +77,34 @@
     </plurals>
     <string name="cd_choose_group">Choose this group</string>
 
+    <string name="home_play">Play</string>
+    <string name="home_play_hint">Games and puzzles</string>
+
+    <string name="games_title">Play</string>
+    <string name="games_subtitle">Choose a game.</string>
+
+    <string name="match_title">Match</string>
+    <string name="match_prompt">How many?</string>
+    <string name="match_hint">Count the apples.</string>
+    <string name="match_correct">Yes. %1$s.</string>
+    <string name="match_this_is">This is %1$s.</string>
+
+    <string name="tapnum_title">Tap the number</string>
+    <string name="tapnum_prompt">Tap %1$s.</string>
+    <string name="tapnum_hint">Listen and tap.</string>
+    <string name="tapnum_correct">Yes. %1$s.</string>
+    <string name="tapnum_this_is">This is %1$s.</string>
+
+    <string name="pattern_title">Patterns</string>
+    <string name="pattern_prompt">What comes next?</string>
+    <string name="pattern_hint">Look at the row.</string>
+    <string name="pattern_correct">Yes.</string>
+    <string name="pattern_this_is">It is %1$s.</string>
+    <string name="pattern_apple">apple</string>
+    <string name="pattern_flower">flower</string>
+    <string name="cd_apple_shape">Apple</string>
+    <string name="cd_flower_shape">Flower</string>
+
     <string name="numbers_title">Numbers</string>
     <string name="numbers_say_again">Say it again</string>
     <string name="numbers_tap">Tap a number to hear it.</string>
@@ -115,6 +143,9 @@
     <string name="settings_rounds">Activities per session</string>
     <string name="settings_rounds_hint">Fewer rounds make a shorter session.</string>
     <string name="settings_rounds_value">%1$d rounds</string>
+    <string name="settings_test_voice">Test voice</string>
+    <string name="settings_test_voice_hint">Hear a short sample. If you hear nothing, install a text-to-speech voice in Android settings.</string>
+    <string name="settings_test_voice_sample">Hello. This is Number Garden.</string>
     <string name="settings_reset">Reset progress</string>
     <string name="settings_reset_hint">Removes watched videos and flowers.</string>
     <string name="settings_reset_title">Reset all progress?</string>

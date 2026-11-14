@@ -42,6 +42,16 @@ First MVP, implemented in this repository. Not yet device-verified and not relea
   store listing draft.
 - MIT code licence and CC BY-NC 4.0 content licence.
 
+### Added
+
+- Three new calm games in a new Play area: Match (quantity to numeral), Tap the number
+  (audio-first numeral choice), and Patterns (what comes next).
+- Play hub on Home with game cards.
+- Baseline-profile, fast-start lesson videos for broader device compatibility, plus poster
+  frames so the player is never a black box before playback.
+- A "Test voice" control in Settings and a clearer empty state for unavailable TTS.
+- Extra progress tracking for the new games (garden still caps at 12).
+
 ### Fixed
 
 - Compare teaching sentence now names the larger quantity first with correct capitalisation
@@ -56,6 +66,10 @@ First MVP, implemented in this repository. Not yet device-verified and not relea
   clipping "Previous".
 - Parental-gate hold target grows at 150%+ font scale so "Press and hold for 3 seconds."
   stays inside the circle.
+- Lesson player now reports playback errors instead of hanging on a black surface and
+  shows a poster frame while loading.
+- Re-encoded both videos to H.264 Constrained Baseline with fast-start for devices that
+  do not decode High profile.
 
 ### Verification
 

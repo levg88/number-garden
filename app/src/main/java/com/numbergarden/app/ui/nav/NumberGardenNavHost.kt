@@ -11,6 +11,10 @@ import androidx.navigation.navArgument
 import com.numbergarden.app.di.AppContainer
 import com.numbergarden.app.ui.screens.CompareScreen
 import com.numbergarden.app.ui.screens.CountingScreen
+import com.numbergarden.app.ui.screens.GamesScreen
+import com.numbergarden.app.ui.screens.MatchScreen
+import com.numbergarden.app.ui.screens.PatternScreen
+import com.numbergarden.app.ui.screens.TapNumberScreen
 import com.numbergarden.app.ui.screens.GardenScreen
 import com.numbergarden.app.ui.screens.GrownUpsGateScreen
 import com.numbergarden.app.ui.screens.HomeScreen
@@ -25,6 +29,10 @@ private object Routes {
     const val COUNT = "count"
     const val COMPARE = "compare"
     const val NUMBERS = "numbers"
+    const val GAMES = "games"
+    const val MATCH = "match"
+    const val TAP_NUMBER = "tapnumber"
+    const val PATTERN = "pattern"
     const val GARDEN = "garden"
     const val GATE = "grownups"
     const val SETTINGS = "settings"
@@ -59,6 +67,7 @@ fun NumberGardenNavHost(container: AppContainer) {
                 onCount = { navController.navigate(Routes.COUNT) },
                 onCompare = { navController.navigate(Routes.COMPARE) },
                 onNumbers = { navController.navigate(Routes.NUMBERS) },
+                onPlay = { navController.navigate(Routes.GAMES) },
                 onGarden = { navController.navigate(Routes.GARDEN) },
                 onGrownUps = { navController.navigate(Routes.GATE) },
             )
@@ -95,6 +104,28 @@ fun NumberGardenNavHost(container: AppContainer) {
 
         composable(Routes.NUMBERS) {
             NumbersScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.GAMES) {
+            GamesScreen(
+                onMatch = { navController.navigate(Routes.MATCH) },
+                onTapNumber = { navController.navigate(Routes.TAP_NUMBER) },
+                onPattern = { navController.navigate(Routes.PATTERN) },
+                onBack = { navController.popBackStack() },
+                onHome = goHome,
+            )
+        }
+
+        composable(Routes.MATCH) {
+            MatchScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.TAP_NUMBER) {
+            TapNumberScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.PATTERN) {
+            PatternScreen(container = container, onHome = goHome)
         }
 
         composable(Routes.GARDEN) {

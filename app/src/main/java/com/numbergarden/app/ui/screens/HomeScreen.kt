@@ -52,6 +52,7 @@ fun HomeScreen(
     onCount: () -> Unit,
     onCompare: () -> Unit,
     onNumbers: () -> Unit,
+    onPlay: () -> Unit,
     onGarden: () -> Unit,
     onGrownUps: () -> Unit,
 ) {
@@ -103,6 +104,11 @@ fun HomeScreen(
                     subtitle = stringResource(R.string.home_numbers_hint),
                     onClick = onNumbers,
                 ) { NumbersArt() }
+                LargeActionTile(
+                    title = stringResource(R.string.home_play),
+                    subtitle = stringResource(R.string.home_play_hint),
+                    onClick = onPlay,
+                ) { CountArt() }
             } else {
                 Row(
                     modifier = Modifier
@@ -142,6 +148,20 @@ fun HomeScreen(
                         onClick = onNumbers,
                         modifier = Modifier.weight(1f).fillMaxHeight(),
                     ) { NumbersArt() }
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Max),
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
+                ) {
+                    BigActionTile(
+                        title = stringResource(R.string.home_play),
+                        subtitle = stringResource(R.string.home_play_hint),
+                        onClick = onPlay,
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                    ) { CountArt() }
                 }
             }
 

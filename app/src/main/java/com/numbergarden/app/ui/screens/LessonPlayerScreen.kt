@@ -10,7 +10,9 @@ import androidx.activity.ComponentActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -47,6 +49,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -117,6 +120,11 @@ private fun PlayerContent(
 ) {
     val context = LocalContext.current
     val speech = LocalSpeech.current
+    val posterRes = when (lesson.id) {
+        "count_to_3" -> R.drawable.poster_count_to_3
+        "more_and_less" -> R.drawable.poster_more_and_less
+        else -> R.drawable.poster_count_to_3
+    }
     val holder = remember(lesson.id) { VideoHolder() }
     var videoUri by remember(lesson.id) { mutableStateOf<Uri?>(null) }
     var videoError by remember(lesson.id) { mutableStateOf(false) }
@@ -251,6 +259,12 @@ private fun PlayerContent(
                     .background(Color.Black),
                 contentAlignment = Alignment.Center,
             ) {
+                Image(
+                    painter = painterResource(posterRes),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize(),
+                )
                 if (videoUri != null) {
                     AndroidView(
                         factory = { ctx ->
@@ -262,7 +276,11 @@ private fun PlayerContent(
                                     prepared = true
                                     val volume = if (soundEnabled) 0.35f else 0f
                                     player.setVolume(volume, volume)
-                                    if (savedPosition > 0) seekTo(savedPosition)
+                                    if (savedPosition > 0) seekTo(savedPosition) else seekTo(1)
+                                }
+                                setOnErrorListener { _, _, _ ->
+                                    videoError = true
+                                    true
                                 }
                                 setOnCompletionListener {
                                     isPlaying = false

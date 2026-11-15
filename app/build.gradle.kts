@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation("com.airbnb.android:lottie-compose:6.4.0")
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.serialization.json)

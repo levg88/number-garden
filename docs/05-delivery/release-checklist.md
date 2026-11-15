@@ -3,11 +3,11 @@
 Copy this into the release record for each build. Do not mark an item done without checking
 the shipped artifact.
 
-> **Current snapshot (14 Nov 2026):** unit tests, lint, debug/release builds, and the Compose
+> **Current snapshot (15 Nov 2026):** unit tests, lint, debug/release builds, and the Compose
 > smoke test pass. Every screen was exercised on an API 36 emulator at 100% and 200% font
-> scale. Target-hardware checks, TalkBack, rotation, process death, the signed release, and
-> the release install are still open. The release APK is unsigned. See
-> [HANDOFF.md](../HANDOFF.md) for the exact evidence.
+> scale. A signed release APK has been produced locally and verified with `apksigner`.
+> Target-hardware checks, TalkBack, rotation, process death, and the signed-release install
+> are still open. See [HANDOFF.md](../HANDOFF.md) for the exact evidence.
 
 ## 1. Scope and versioning
 

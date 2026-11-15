@@ -37,8 +37,9 @@ Current artifacts:
 
 | Artifact | Path | Size |
 | --- | --- | --- |
-| Debug APK | `app/build/outputs/apk/debug/app-debug.apk` | ~13 MB |
-| Release APK (unsigned) | `app/build/outputs/apk/release/app-release-unsigned.apk` | ~1.8 MB |
+| Debug APK | `app/build/outputs/apk/debug/app-debug.apk` | ~27 MB |
+| Release APK (signed when `keystore.properties` exists) | `app/build/outputs/apk/release/app-release.apk` | ~16 MB |
+| Release APK (CI / no keystore) | `app/build/outputs/apk/release/app-release-unsigned.apk` | ~16 MB |
 
 ## 3. Verification status
 
@@ -47,11 +48,11 @@ Current artifacts:
 | JVM unit tests | Passing | `:app:testDebugUnitTest` |
 | Android lint | Passing | `:app:lintDebug`, no errors |
 | Debug build | Passing | `:app:assembleDebug` |
-| Release build (R8 + shrinking) | Passing | `:app:assembleRelease`, unsigned |
+| Release build (R8 + shrinking) | Passing | `:app:assembleRelease` |
 | Compose smoke test | Passing | `:app:connectedDebugAndroidTest`, 1 test |
 | Emulator manual pass | Complete | Pixel 6 AVD `ng_api36`, Android 16 / API 36, 100% and 200% font scale |
 | Target hardware | **Not run** | See open items |
-| Signed release | **Not produced** | No keystore configured |
+| Signed release | **Produced** | Local `keystore.properties` + key outside the repo; APK verified with `apksigner` |
 
 ### What was exercised on the emulator
 
@@ -125,7 +126,7 @@ Re-run the manifest checks against the final artifact:
 
 ```bash
 "$ANDROID_HOME/build-tools/36.0.0/aapt" dump permissions \
-  app/build/outputs/apk/release/app-release-unsigned.apk
+  app/build/outputs/apk/release/app-release.apk
 ```
 
 ## 6. Remaining work, in recommended order
@@ -133,9 +134,9 @@ Re-run the manifest checks against the final artifact:
 1. **Target-hardware pass.** Install the debug APK on the child's actual device. Follow
    `04-qa/manual-test-script.md`. Prioritise TTS voice quality, video playback, insets and
    cutouts, TalkBack traversal, rotation, background/resume, process death, and airplane mode.
-2. **Release build install.** The release APK is unsigned. Create a keystore outside the
-   repository, wire signing via environment/Gradle properties, then install and smoke-test the
-   signed release (R8 bugs only appear there).
+2. **Release build install.** A signed release is produced locally from
+   `keystore.properties` (gitignored) and a keystore outside the repository. Install that
+   artifact and smoke-test it on target hardware (R8 bugs only appear in release builds).
 3. **TalkBack audit.** Verify one focus stop per control, heading order, live-region feedback,
    and that decorative art is not announced. The 200% visual pass is not a TalkBack pass.
 4. **Rotation and process death.** Activities are portrait-agnostic and state is saveable, but
@@ -191,4 +192,6 @@ spot-checked on target hardware.
   metadata, so history starts at a single baseline commit.
 - `app/build/`, `.gradle/`, `.kotlin/`, `local.properties`, signing files, and captured
   screenshots are intentionally ignored.
-- The release APK is unsigned by design in this snapshot; do not distribute it.
+- Release signing is local-only: `keystore.properties` and the `.jks` file are gitignored and
+  must not be committed. Without them, `:app:assembleRelease` still succeeds and produces an
+  unsigned APK.

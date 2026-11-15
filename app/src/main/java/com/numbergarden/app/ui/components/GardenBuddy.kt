@@ -29,6 +29,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import app.rive.runtime.kotlin.RiveAnimationView
 import app.rive.runtime.kotlin.core.Fit
 import com.numbergarden.app.R
+import com.numbergarden.app.rive.RiveRuntime
 import com.numbergarden.app.ui.theme.FlowerLeaf
 import com.numbergarden.app.ui.theme.FlowerRose
 import kotlin.math.cos
@@ -107,39 +108,40 @@ fun GardenBuddy(
                 BuddyFaceFallback(accent = theme.accent)
             }
 
-            AndroidView(
-                factory = { context ->
-                    RiveAnimationView(context).apply {
-                        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
-                        setBackgroundColor(AndroidColor.TRANSPARENT)
-                        runCatching {
-                            setRiveResource(
-                                resId = R.raw.garden_buddy,
-                                artboardName = "New Artboard",
-                                stateMachineName = "State Machine 1",
-                                fit = Fit.CONTAIN,
-                                autoplay = true,
+            if (RiveRuntime.available) {
+                AndroidView(
+                    factory = { context ->
+                        RiveAnimationView(context).apply {
+                            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS
+                            runCatching {
+                                setRiveResource(
+                                    resId = R.raw.garden_buddy,
+                                    artboardName = "New Artboard",
+                                    stateMachineName = "State Machine 1",
+                                    fit = Fit.CONTAIN,
+                                    autoplay = true,
+                                )
+                            }
+                            postDelayed(
+                                {
+                                    riveReady = runCatching { controller.file != null }.getOrDefault(false)
+                                },
+                                700,
                             )
                         }
-                        postDelayed(
-                            {
-                                riveReady = runCatching { controller.file != null }.getOrDefault(false)
-                            },
-                            700,
-                        )
-                    }
-                },
-                update = { view ->
-                    val wasCelebrating = view.tag as? Boolean ?: false
-                    if (celebrating && !wasCelebrating) {
-                        runCatching {
-                            view.fireState("State Machine 1", "Trigger 1")
+                    },
+                    update = { view ->
+                        val wasCelebrating = view.tag as? Boolean ?: false
+                        if (celebrating && !wasCelebrating) {
+                            runCatching {
+                                view.fireState("State Machine 1", "Trigger 1")
+                            }
                         }
-                    }
-                    view.tag = celebrating
-                },
-                modifier = Modifier.fillMaxSize(),
-            )
+                        view.tag = celebrating
+                    },
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
     }
 }

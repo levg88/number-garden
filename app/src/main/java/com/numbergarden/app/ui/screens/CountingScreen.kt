@@ -58,6 +58,7 @@ import com.numbergarden.app.ui.components.ContentErrorScreen
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
 import com.numbergarden.app.ui.components.GardenScaffold
+import com.numbergarden.app.ui.components.LottieArt
 import com.numbergarden.app.ui.components.NumberButton
 import com.numbergarden.app.ui.components.rememberMotionAllowed
 import com.numbergarden.app.util.numberWord
@@ -180,6 +181,7 @@ private fun CountingReadyScreen(
                         .semantics { heading() },
                 )
                 SpeakerButton(onClick = { speech.say(prompt) })
+                LottieArt(resId = R.raw.apple_bounce, modifier = Modifier.size(44.dp))
             }
 
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {

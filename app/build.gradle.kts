@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation("com.airbnb.android:lottie-compose:6.4.0")
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.serialization.json)

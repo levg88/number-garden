@@ -50,6 +50,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.semantics.Role
 import com.numbergarden.app.R
@@ -562,4 +566,18 @@ fun GardenButton(
             Text(text = text, style = MaterialTheme.typography.labelLarge)
         }
     }
+}
+
+@Composable
+fun LottieArt(
+    @androidx.annotation.RawRes resId: Int,
+    modifier: Modifier = Modifier,
+    iterations: Int = LottieConstants.IterateForever,
+) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(resId))
+    LottieAnimation(
+        composition = composition,
+        iterations = iterations,
+        modifier = modifier,
+    )
 }

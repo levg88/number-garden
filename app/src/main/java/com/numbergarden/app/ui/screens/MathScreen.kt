@@ -55,6 +55,7 @@ import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.FingerCount
+import com.numbergarden.app.ui.components.LottieArt
 import com.numbergarden.app.ui.components.ContentErrorScreen
 import com.numbergarden.app.ui.components.SessionCompletionScreen
 import com.numbergarden.app.ui.components.FlowerArt
@@ -192,6 +193,7 @@ private fun MathReadyScreen(
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
+            LottieArt(resId = R.raw.finger_count, modifier = Modifier.size(96.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),

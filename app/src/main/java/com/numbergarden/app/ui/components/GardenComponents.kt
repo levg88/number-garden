@@ -304,7 +304,12 @@ fun AppleField(
     ) {
         repeat(count) { index ->
             val ordinal = countedOrdinals.indexOf(index).takeIf { it >= 0 }?.plus(1)
-            val scale = if (index == tappedIndex) tapScale.value else 1f
+            val appear = remember { Animatable(0f) }
+            LaunchedEffect(Unit) {
+                appear.animateTo(1f, animationSpec = tween(420, delayMillis = index * 70))
+            }
+            val tap = if (index == tappedIndex) tapScale.value else 1f
+            val scale = appear.value * tap
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 AppleArt(
                     size = appleSize,
@@ -494,6 +499,16 @@ fun flowerColor(index: Int): Color = when (index % 3) {
 @Composable
 fun GardenPlot(bloomed: Boolean, index: Int, modifier: Modifier = Modifier) {
     val scheme = MaterialTheme.colorScheme
+    val motionAllowed = rememberMotionAllowed(false)
+    val scale = remember(index) { Animatable(if (bloomed) 1f else 1f) }
+    LaunchedEffect(bloomed) {
+        if (bloomed && motionAllowed) {
+            scale.snapTo(0.4f)
+            scale.animateTo(1f, animationSpec = tween(600))
+        } else {
+            scale.snapTo(1f)
+        }
+    }
     Surface(
         modifier = modifier
             .aspectRatio(1f)
@@ -513,6 +528,7 @@ fun GardenPlot(bloomed: Boolean, index: Int, modifier: Modifier = Modifier) {
                 bloomed = bloomed,
                 size = 82.dp,
                 petalColor = flowerColor(index),
+                modifier = Modifier.graphicsLayer(scaleX = scale.value, scaleY = scale.value),
             )
         }
     }

@@ -15,11 +15,18 @@ android {
         applicationId = "com.numbergarden.app"
         minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        // The Rive runtime ships a large native library per ABI. Shipping only the
+        // architectures real phones use keeps the download small; App Bundle builds
+        // split these automatically at distribution time.
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+        }
     }
 
     buildTypes {
@@ -70,8 +77,7 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
-    implementation("com.airbnb.android:lottie-compose:6.4.0")
-    implementation("com.google.code.findbugs:jsr305:3.0.2")
+    implementation(libs.rive.android)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.serialization.json)

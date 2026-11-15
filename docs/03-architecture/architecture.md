@@ -286,7 +286,9 @@ and terminates in a screen where the child or caregiver can go home.
 ## 12. Security and privacy boundaries
 
 - The manifest requests no system permissions.
-- No network libraries, analytics, crash reporting, ads, or third-party SDKs.
+- No network libraries, analytics, crash reporting, ads, or tracking. The only third-party
+  runtime is the MIT-licensed Rive animation engine, which does not require the `INTERNET`
+  permission.
 - Backups and device transfer are disabled (`allowBackup=false`, `fullBackupContent=false`,
   `dataExtractionRules`).
 - Content is read-only from assets; no downloads or remote config.

@@ -136,6 +136,34 @@
     <string name="math_minus">−</string>
     <string name="cd_apple_shape">Apple</string>
     <string name="cd_flower_shape">Flower</string>
+    <string name="cd_leaf_shape">Leaf</string>
+
+    <string name="order_title">Order</string>
+    <string name="order_prompt">Tap the smallest number.</string>
+    <string name="order_hint">Look for the smallest one.</string>
+    <string name="order_correct">Yes. %1$s.</string>
+    <string name="order_this_is">This is %1$s.</string>
+    <string name="order_step">%1$d of %2$d in order</string>
+
+    <string name="bonds_title">Number bonds</string>
+    <string name="bonds_prompt">Make %1$d.</string>
+    <string name="bonds_hint">The two parts make the whole.</string>
+    <string name="bonds_correct">Yes. %1$d and %2$d make %3$d.</string>
+    <string name="bonds_this_is">%1$d and %2$d make %3$d.</string>
+    <string name="bonds_missing">?</string>
+
+    <string name="positions_title">Positions</string>
+    <string name="positions_prompt">Tap the %1$s one.</string>
+    <string name="positions_hint">Start at the left.</string>
+    <string name="positions_correct">Yes. The %1$s one.</string>
+    <string name="positions_this_is">This is the %1$s one.</string>
+    <string name="position_first">first</string>
+    <string name="position_second">second</string>
+    <string name="position_third">third</string>
+    <string name="cd_position_first">First</string>
+    <string name="cd_position_second">Second</string>
+    <string name="cd_position_third">Third</string>
+    <string name="cd_position_item">%1$s. %2$s.</string>
 
     <string name="numbers_title">Numbers</string>
     <string name="numbers_say_again">Say it again</string>
@@ -172,8 +200,16 @@
     <string name="settings_motion_hint">Turns off growing and fading animations.</string>
     <string name="settings_contrast">High contrast</string>
     <string name="settings_contrast_hint">Stronger colors and outlines.</string>
-    <string name="settings_voice_style">Voice style</string>
-    <string name="settings_voice_style_hint">Choose how the narrator sounds.</string>
+    <string name="settings_voice_style">Voice cast</string>
+    <string name="settings_voice_style_hint">Choose a garden friend to read the lines. Each voice acts the punctuation, so questions lift and celebrations sparkle.</string>
+    <string name="voice_style_pip">Pip</string>
+    <string name="voice_style_pip_hint">Bright and curious</string>
+    <string name="voice_style_willow">Willow</string>
+    <string name="voice_style_willow_hint">Soft and unhurried</string>
+    <string name="voice_style_bramble">Bramble</string>
+    <string name="voice_style_bramble_hint">Warm and storytellerly</string>
+    <string name="voice_style_zippy">Zippy</string>
+    <string name="voice_style_zippy_hint">Quick and playful</string>
     <string name="voice_style_friendly">Friendly</string>
     <string name="voice_style_hero">Hero</string>
     <string name="voice_style_robot">Robot</string>
@@ -182,7 +218,7 @@
     <string name="settings_rounds_value">%1$d rounds</string>
     <string name="settings_test_voice">Test voice</string>
     <string name="settings_test_voice_hint">Hear a short sample. If you hear nothing, install a text-to-speech voice in Android settings.</string>
-    <string name="settings_test_voice_sample">Hello. This is Number Garden.</string>
+    <string name="settings_test_voice_sample">Hello! I am your garden friend. Shall we count together?</string>
     <string name="settings_reset">Reset progress</string>
     <string name="settings_reset_hint">Removes watched videos and flowers.</string>
     <string name="settings_reset_title">Reset all progress?</string>

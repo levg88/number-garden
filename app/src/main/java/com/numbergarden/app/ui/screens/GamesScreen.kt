@@ -24,8 +24,11 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.numbergarden.app.R
+import com.numbergarden.app.ui.components.AppleGlyph
 import com.numbergarden.app.ui.components.CountArt
+import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenScaffold
+import com.numbergarden.app.ui.components.LeafGlyph
 import com.numbergarden.app.ui.components.NumbersArt
 import com.numbergarden.app.ui.theme.LocalHighContrast
 
@@ -38,6 +41,9 @@ fun GamesScreen(
     onShapes: () -> Unit,
     onMissing: () -> Unit,
     onMath: () -> Unit,
+    onOrder: () -> Unit,
+    onBonds: () -> Unit,
+    onPositions: () -> Unit,
     onBack: () -> Unit,
     onHome: () -> Unit,
 ) {
@@ -89,6 +95,27 @@ fun GamesScreen(
                 subtitle = stringResource(R.string.math_hint),
                 onClick = onMath,
             ) { NumbersArt() }
+            GameCard(
+                title = stringResource(R.string.order_title),
+                subtitle = stringResource(R.string.order_hint),
+                onClick = onOrder,
+            ) { LeafGlyph(size = 54.dp) }
+            GameCard(
+                title = stringResource(R.string.bonds_title),
+                subtitle = stringResource(R.string.bonds_hint),
+                onClick = onBonds,
+            ) {
+                FlowerArt(
+                    bloomed = true,
+                    size = 58.dp,
+                    modifier = Modifier.size(58.dp),
+                )
+            }
+            GameCard(
+                title = stringResource(R.string.positions_title),
+                subtitle = stringResource(R.string.positions_hint),
+                onClick = onPositions,
+            ) { AppleGlyph(size = 54.dp) }
             Spacer(Modifier.height(8.dp))
         }
     }

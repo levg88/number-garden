@@ -28,6 +28,10 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         additionSessions = prefs.getInt(KEY_ADDITION, 0).coerceAtLeast(0),
         shapesSessions = prefs.getInt(KEY_SHAPES, 0).coerceAtLeast(0),
         missingSessions = prefs.getInt(KEY_MISSING, 0).coerceAtLeast(0),
+        mathSessions = prefs.getInt(KEY_MATH, 0).coerceAtLeast(0),
+        orderSessions = prefs.getInt(KEY_ORDER, 0).coerceAtLeast(0),
+        bondSessions = prefs.getInt(KEY_BONDS, 0).coerceAtLeast(0),
+        positionSessions = prefs.getInt(KEY_POSITIONS, 0).coerceAtLeast(0),
     )
 
     override fun markLessonWatched(lessonId: String) {
@@ -55,6 +59,10 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
                 SessionKind.ADDITION -> current.copy(additionSessions = current.additionSessions + 1)
                 SessionKind.SHAPES -> current.copy(shapesSessions = current.shapesSessions + 1)
                 SessionKind.MISSING -> current.copy(missingSessions = current.missingSessions + 1)
+                SessionKind.MATH -> current.copy(mathSessions = current.mathSessions + 1)
+                SessionKind.ORDER -> current.copy(orderSessions = current.orderSessions + 1)
+                SessionKind.BONDS -> current.copy(bondSessions = current.bondSessions + 1)
+                SessionKind.POSITIONS -> current.copy(positionSessions = current.positionSessions + 1)
             }
         }
         val value = _progress.value
@@ -67,6 +75,10 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
             .putInt(KEY_ADDITION, value.additionSessions)
             .putInt(KEY_SHAPES, value.shapesSessions)
             .putInt(KEY_MISSING, value.missingSessions)
+            .putInt(KEY_MATH, value.mathSessions)
+            .putInt(KEY_ORDER, value.orderSessions)
+            .putInt(KEY_BONDS, value.bondSessions)
+            .putInt(KEY_POSITIONS, value.positionSessions)
             .apply()
     }
 
@@ -86,5 +98,9 @@ class PrefsProgressRepository(context: Context) : ProgressRepository {
         const val KEY_ADDITION = "addition_sessions"
         const val KEY_SHAPES = "shapes_sessions"
         const val KEY_MISSING = "missing_sessions"
+        const val KEY_MATH = "math_sessions"
+        const val KEY_ORDER = "order_sessions"
+        const val KEY_BONDS = "bonds_sessions"
+        const val KEY_POSITIONS = "positions_sessions"
     }
 }

@@ -45,6 +45,8 @@ import com.numbergarden.app.domain.PatternState
 import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.ContentErrorScreen
+import com.numbergarden.app.ui.components.GameMotionTheme
+import com.numbergarden.app.ui.components.GameSceneHeader
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
 import com.numbergarden.app.ui.components.GardenScaffold
@@ -108,6 +110,8 @@ private fun PatternReadyScreen(
         SessionCompletionScreen(
             title = stringResource(R.string.pattern_title),
             gardenFull = progress.blooms >= Progress.MAX_BLOOMS,
+            theme = GameMotionTheme.PATTERN,
+            reduceMotion = settings.reduceMotion,
             onPlayAgain = onRestart,
             onHome = onHome,
         )
@@ -150,6 +154,12 @@ private fun PatternReadyScreen(
             ProgressRow(
                 index = game.index,
                 total = game.rounds.size,
+            )
+
+            GameSceneHeader(
+                theme = GameMotionTheme.PATTERN,
+                reduceMotion = settings.reduceMotion,
+                celebrating = game.phase != PatternPhase.ASK,
             )
 
             Row(

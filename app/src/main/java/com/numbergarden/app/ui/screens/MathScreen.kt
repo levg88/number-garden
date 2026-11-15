@@ -55,8 +55,9 @@ import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.FingerCount
-import com.numbergarden.app.ui.components.LottieArt
 import com.numbergarden.app.ui.components.ContentErrorScreen
+import com.numbergarden.app.ui.components.GameMotionTheme
+import com.numbergarden.app.ui.components.GameSceneHeader
 import com.numbergarden.app.ui.components.SessionCompletionScreen
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
@@ -70,7 +71,7 @@ fun MathScreen(
     container: AppContainer,
     onHome: () -> Unit,
 ) {
-    val viewModel: CountingViewModel = viewModel(
+    val viewModel: MathViewModel = viewModel(
         factory = MathViewModel.factory(container),
     )
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -94,7 +95,6 @@ fun MathScreen(
             onRestart = viewModel::restart,
             onHome = onHome,
         )
-        else -> LoadingScreen(onHome)
     }
 }
 
@@ -124,6 +124,8 @@ private fun MathReadyScreen(
         SessionCompletionScreen(
             title = stringResource(R.string.math_title),
             gardenFull = progress.blooms >= Progress.MAX_BLOOMS,
+            theme = GameMotionTheme.MATH,
+            reduceMotion = settings.reduceMotion,
             onPlayAgain = onRestart,
             onHome = onHome,
         )
@@ -170,6 +172,12 @@ private fun MathReadyScreen(
                 total = game.rounds.size,
             )
 
+            GameSceneHeader(
+                theme = GameMotionTheme.MATH,
+                reduceMotion = settings.reduceMotion,
+                celebrating = game.phase != MathPhase.ASK,
+            )
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -193,7 +201,6 @@ private fun MathReadyScreen(
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground,
             )
-            LottieArt(resId = R.raw.finger_count, modifier = Modifier.size(96.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),

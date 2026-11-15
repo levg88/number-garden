@@ -4,6 +4,40 @@ All notable changes to Number Garden are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project intends to use
 [Semantic Versioning](https://semver.org/) once there is a public release.
 
+## [0.2.0] — 2026-11-15
+
+Animation, more games, and a character voice cast.
+
+### Added
+
+- Rive runtime (`app.rive:rive-android`) and a shared Rive mascot, Lumi, driven by the
+  authored `State Machine 1` / `Trigger 1` state machine for correct-answer reactions.
+- A distinct animated Compose scene for every activity (counting, comparing, matching,
+  tapping, patterns, addition, shapes, missing number, math, order, bonds, positions,
+  numbers, and the garden), each with its own palette and motion.
+- Three new games:
+  - **Order** — repeatedly tap the smallest number to build an ascending sequence.
+  - **Number bonds** — choose the partner that completes a bond to 5 or 10.
+  - **Positions** — practise first/second/third by tapping a garden friend.
+- Garden friend voice cast: **Pip**, **Willow**, **Bramble**, and **Zippy**, plus a 2×2
+  picker in Grown-ups. Legacy `friendly`/`hero`/`robot` values are mapped automatically.
+- Phrase-level TTS acting: pitch, pace, and pause vary by mood (question, cheer, teach,
+  warm), and long lines are split into spoken phrases.
+- Local high-quality TTS voice preference and accessibility audio attributes.
+- Unit tests for the Order, Number bonds, and Positions engines.
+
+### Changed
+
+- Correct answers now fire the Rive trigger as well as the Compose celebration.
+- Session completion screens use the completed game's scene and palette.
+- Math progress is recorded as its own `MATH` kind instead of borrowing `COUNTING`.
+- README, handoff notes, and content licence now document Rive and the voice cast.
+
+### Removed
+
+- Lottie dependency and the generated Lottie JSON files (`flower_bloom`, `apple_bounce`,
+  `finger_count`). All art is now Compose Canvas or Rive.
+
 ## [0.1.0] — 2026-11-14
 
 First MVP, implemented in this repository. Not yet device-verified and not release-ready.
@@ -113,4 +147,5 @@ First MVP, implemented in this repository. Not yet device-verified and not relea
 - Decide whether 3 rounds should be the default session length.
 - Consider screenshot tests once the visual design stabilises.
 
+[0.2.0]: https://example.invalid/number-garden/releases/tag/v0.2.0
 [0.1.0]: https://example.invalid/number-garden/releases/tag/v0.1.0

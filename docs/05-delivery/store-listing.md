@@ -146,7 +146,7 @@ for the target store's policy and for community feedback before publishing.
 ## 11. Release notes template
 
 ```
-Number Garden 0.1.0
+Number Garden 0.2.0
 
 First MVP release.
 

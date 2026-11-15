@@ -8,7 +8,7 @@ data class AppSettings(
     val reduceMotion: Boolean = false,
     val highContrast: Boolean = false,
     val roundsPerSession: Int = 10,
-    val voiceStyle: String = "friendly",
+    val voiceStyle: String = "pip",
 )
 
 interface SettingsRepository {
@@ -31,6 +31,10 @@ enum class SessionKind {
     ADDITION,
     SHAPES,
     MISSING,
+    MATH,
+    ORDER,
+    BONDS,
+    POSITIONS,
 }
 
 data class Progress(
@@ -43,10 +47,15 @@ data class Progress(
     val additionSessions: Int = 0,
     val shapesSessions: Int = 0,
     val missingSessions: Int = 0,
+    val mathSessions: Int = 0,
+    val orderSessions: Int = 0,
+    val bondSessions: Int = 0,
+    val positionSessions: Int = 0,
 ) {
     val totalSessions: Int get() =
         countingSessions + compareSessions + matchSessions + tapNumberSessions + patternSessions +
-            additionSessions + shapesSessions + missingSessions
+            additionSessions + shapesSessions + missingSessions + mathSessions + orderSessions +
+            bondSessions + positionSessions
 
     /** The garden is deliberately finite and never resets on its own. */
     val blooms: Int get() = totalSessions.coerceAtMost(MAX_BLOOMS)

@@ -49,7 +49,7 @@ class MathViewModel(
         val next = MathSession.next(current.ui.game)
         if (next.completed && !recorded) {
             recorded = true
-            progressRepository.recordSession(SessionKind.COUNTING) // reuse counting kind for garden
+            progressRepository.recordSession(SessionKind.MATH)
         }
         _state.value = current.copy(ui = current.ui.copy(game = next))
     }

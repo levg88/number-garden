@@ -23,7 +23,7 @@ class PrefsSettingsRepository(context: Context) : SettingsRepository {
         reduceMotion = prefs.getBoolean(KEY_REDUCE_MOTION, false),
         highContrast = prefs.getBoolean(KEY_HIGH_CONTRAST, false),
         roundsPerSession = prefs.getInt(KEY_ROUNDS, 10).coerceIn(1, 100),
-        voiceStyle = prefs.getString(KEY_VOICE_STYLE, "friendly") ?: "friendly",
+        voiceStyle = prefs.getString(KEY_VOICE_STYLE, "pip") ?: "pip",
     )
 
     override fun setVoice(enabled: Boolean) {

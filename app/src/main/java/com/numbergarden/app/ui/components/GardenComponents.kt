@@ -50,10 +50,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.semantics.Role
 import com.numbergarden.app.R
@@ -121,6 +117,28 @@ fun BigActionTile(
 @Composable
 fun AppleGlyph(size: Dp, modifier: Modifier = Modifier) {
     AppleCanvas(size = size, modifier = modifier)
+}
+
+@Composable
+fun LeafGlyph(size: Dp, modifier: Modifier = Modifier) {
+    Canvas(modifier = modifier.size(size)) {
+        val leafWidth = this.size.width
+        val leafHeight = this.size.height
+        rotate(degrees = -24f, pivot = center) {
+            drawOval(
+                color = FlowerLeaf,
+                topLeft = Offset(leafWidth * 0.18f, leafHeight * 0.30f),
+                size = Size(leafWidth * 0.64f, leafHeight * 0.40f),
+            )
+            drawLine(
+                color = FlowerLeaf.copy(alpha = 0.55f),
+                start = Offset(leafWidth * 0.24f, leafHeight * 0.50f),
+                end = Offset(leafWidth * 0.76f, leafHeight * 0.50f),
+                strokeWidth = leafWidth * 0.025f,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round,
+            )
+        }
+    }
 }
 
 @Composable
@@ -566,18 +584,4 @@ fun GardenButton(
             Text(text = text, style = MaterialTheme.typography.labelLarge)
         }
     }
-}
-
-@Composable
-fun LottieArt(
-    @androidx.annotation.RawRes resId: Int,
-    modifier: Modifier = Modifier,
-    iterations: Int = LottieConstants.IterateForever,
-) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(resId))
-    LottieAnimation(
-        composition = composition,
-        iterations = iterations,
-        modifier = modifier,
-    )
 }

@@ -262,6 +262,21 @@ private fun VoiceStyleChoice(
     value: String,
     onChange: (String) -> Unit,
 ) {
+    // Older installs stored the first voice names. Map them onto the current cast
+    // so the selected chip always matches what the narrator will actually use.
+    val selected = when (value) {
+        "hero" -> "bramble"
+        "robot", "sparkle" -> "zippy"
+        "friendly" -> "pip"
+        else -> value
+    }
+    val cast = listOf(
+        Triple("pip", R.string.voice_style_pip, R.string.voice_style_pip_hint),
+        Triple("willow", R.string.voice_style_willow, R.string.voice_style_willow_hint),
+        Triple("bramble", R.string.voice_style_bramble, R.string.voice_style_bramble_hint),
+        Triple("zippy", R.string.voice_style_zippy, R.string.voice_style_zippy_hint),
+    )
+
     Surface(
         shape = MaterialTheme.shapes.large,
         color = MaterialTheme.colorScheme.surface,
@@ -282,54 +297,78 @@ private fun VoiceStyleChoice(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                listOf("friendly", "hero", "robot").forEach { option ->
-                    val label = when (option) {
-                        "hero" -> stringResource(R.string.voice_style_hero)
-                        "robot" -> stringResource(R.string.voice_style_robot)
-                        else -> stringResource(R.string.voice_style_friendly)
+            cast.chunked(2).forEach { row ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                    row.forEach { (id, labelRes, hintRes) ->
+                        VoiceChip(
+                            label = stringResource(labelRes),
+                            hint = stringResource(hintRes),
+                            selected = selected == id,
+                            onClick = { onChange(id) },
+                            modifier = Modifier.weight(1f),
+                        )
                     }
-                    val isSelected = value == option
-                    Surface(
-                        modifier = Modifier
-                            .weight(1f)
-                            .heightIn(min = 56.dp)
-                            .selectable(
-                                selected = isSelected,
-                                role = Role.RadioButton,
-                                onClick = { onChange(option) },
-                            )
-                            .semantics { selected = isSelected },
-                        shape = MaterialTheme.shapes.medium,
-                        color = if (isSelected) {
-                            MaterialTheme.colorScheme.primaryContainer
-                        } else {
-                            MaterialTheme.colorScheme.surface
-                        },
-                        border = BorderStroke(
-                            width = if (isSelected) 2.dp else 1.dp,
-                            color = if (isSelected) {
-                                MaterialTheme.colorScheme.primary
-                            } else {
-                                MaterialTheme.colorScheme.outlineVariant
-                            },
-                        ),
-                    ) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Text(
-                                text = label,
-                                style = MaterialTheme.typography.titleMedium,
-                            )
-                        }
+                    if (row.size == 1) {
+                        Spacer(Modifier.weight(1f))
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun VoiceChip(
+    label: String,
+    hint: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        modifier = modifier
+            .heightIn(min = 72.dp)
+            .selectable(
+                selected = selected,
+                role = Role.RadioButton,
+                onClick = onClick,
+            )
+            .semantics { this.selected = selected },
+        shape = MaterialTheme.shapes.medium,
+        color = if (selected) {
+            MaterialTheme.colorScheme.primaryContainer
+        } else {
+            MaterialTheme.colorScheme.surface
+        },
+        border = BorderStroke(
+            width = if (selected) 2.dp else 1.dp,
+            color = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.outlineVariant
+            },
+        ),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.Start,
+        ) {
+            Text(
+                text = label,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = hint,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
         }
     }
 }

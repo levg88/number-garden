@@ -12,7 +12,7 @@ the shipped artifact.
 ## 1. Scope and versioning
 
 - [ ] `versionCode` incremented in `app/build.gradle.kts`.
-- [ ] `versionName` matches the release (MVP `0.1.0` for the first build).
+- [ ] `versionName` matches the release (`0.2.0` for this build).
 - [ ] `CHANGELOG.md` has an entry for this version.
 - [ ] No P0 requirement is unmet (see [PRD](../01-product/prd.md)).
 - [ ] No S1/S2 defect is open.
@@ -22,7 +22,7 @@ the shipped artifact.
 ## 2. Code and content freeze
 
 - [ ] Working tree is clean; release build is from the tagged commit.
-- [ ] Tag created (e.g. `v0.1.0`) and pushed.
+- [ ] Tag created (e.g. `v0.2.0`) and pushed.
 - [ ] Content pack frozen; no uncommitted JSON or MP4 changes.
 - [ ] Both videos play on the target device.
 - [ ] No debug-only screen, log, or placeholder is reachable.

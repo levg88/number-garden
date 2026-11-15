@@ -156,9 +156,10 @@ spot-checked on target hardware.
 | Area | Where |
 | --- | --- |
 | App entry / navigation | `app/src/main/java/com/numbergarden/app/MainActivity.kt`, `ui/NumberGardenApp.kt` |
-| Screens | `ui/screens/` — `HomeScreen`, `WatchScreen`, `LessonPlayerScreen`, `CountingScreen`, `CompareScreen`, `NumbersScreen`, `GardenScreen`, `GrownUpsGateScreen`, `SettingsScreen` |
+| Screens | `ui/screens/` — `HomeScreen`, `WatchScreen`, `LessonPlayerScreen`, `CountingScreen`, `CompareScreen`, `NumbersScreen`, `GardenScreen`, `GrownUpsGateScreen`, `SettingsScreen`, plus the Play games (`MatchScreen`, `TapNumberScreen`, `PatternScreen`, `AdditionScreen`, `ShapesScreen`, `MissingScreen`, `MathScreen`, `OrderScreen`, `BondScreen`, `PositionScreen`) |
 | Shared components | `ui/components/GardenComponents.kt`, `SessionCompletionScreen.kt`, `ContentErrorScreen.kt` |
-| Session logic | `domain/` — counting/comparing engines and round generation |
+| Animation | `ui/components/GameMotion.kt` (per-game scenes), `ui/components/GardenBuddy.kt` (Rive mascot + fallback) |
+| Session logic | `domain/` — counting/comparing/pattern/math/order/bond/position engines and round generation |
 | Content model + validation | `model/`, `data/ContentRepository.kt`, `data/ContentValidator.kt` |
 | Persistence | `data/PrefsProgressRepository.kt`, `data/PrefsSettingsRepository.kt` |
 | TTS | `audio/` |
@@ -170,7 +171,14 @@ spot-checked on target hardware.
 
 ## 8. Recent additions (after baseline)
 
-- Play hub with three new games: Match, Tap the number, Patterns.
+- Animation upgrade: Rive runtime + `garden_buddy.riv` mascot, and a bespoke Compose scene
+  per activity in `ui/components/GameMotion.kt`.
+- Three new games: Order, Number bonds, and Positions, with engines, ViewModels, screens,
+  routes, and JVM tests.
+- Character voice cast in `audio/Narrator.kt` (Pip, Willow, Bramble, Zippy) with
+  phrase-level pitch/rate/pause acting and a 2×2 picker in Grown-ups.
+- Lottie was removed; all art is Compose Canvas or Rive.
+- Play hub now lists twelve activities.
 - Sound cues via `SoundEffects` (soft ack/prompt tones) plus a Settings "Test voice" button.
 - TTS now falls back to the device default locale when en-US is unavailable.
 - Lesson videos re-encoded to H.264 Constrained Baseline with fast-start; poster frames added.

@@ -14,7 +14,8 @@ tests, a QA script, CI, and a release checklist.
 > generated lesson videos, bundled content pack, local progress, parental gate, and JVM tests.
 > Unit tests, lint, debug/release builds, and the Compose smoke test pass. Every child screen
 > has been exercised on an Android 16 (API 36) emulator at 100% and 200% font scale; the
-> release APK is 1.8 MB and requests no system permissions. It is **not** clinically validated
+> release APK is about 16 MB (the Rive runtime includes native libraries) and requests no
+> system permissions. It is **not** clinically validated
 > and is not a medical or diagnostic tool. Target-hardware checks (TalkBack traversal, TTS
 > quality, OEM video playback, rotation, process death, signed-release install) are still
 > pending. See [docs/HANDOFF.md](docs/HANDOFF.md) before continuing.
@@ -29,8 +30,11 @@ tests, a QA script, CI, and a release checklist.
 | **Count** | Count 1–5 apples by tapping. Choose the matching numeral. After one miss, sequence hints appear; after two, the answer is shown gently. No fail state. |
 | **Compare** | Choose the group with *more* or *fewer*. After a miss, counts are revealed; after two, the correct group is outlined. |
 | **Numbers** | Picture cards for 1–10 with a ten-frame, numeral, word, and spoken narration. |
-| **My garden** | One flower per completed counting/comparing session, capped at 12. It never wilts and never resets by itself. |
-| **Grown-ups** | Parental gate, then voice/sound/motion/contrast controls, 3 or 5 rounds per session, reset progress, and a plain-language privacy note. |
+| **Play** | Twelve short games: Match, Tap the number, Patterns, Add, Shapes, Missing number, Math, Order, Number bonds, Positions, and the original Count and Compare. Each has its own animated garden scene and its own Rive state-machine mascot moment. |
+| **Animation** | A shared Rive mascot (Lumi) plus a bespoke Compose scene per activity. Correct answers trigger the authored Rive state machine; everything honours “Reduce motion” and the system animation scale. |
+| **Voice cast** | Four offline character voices — Pip, Willow, Bramble, and Zippy — built from platform TTS pitch, pace, and pause acting. Questions lift, celebrations sparkle, and long lines are split into spoken phrases. |
+| **My garden** | One flower per completed session, capped at 12. It never wilts and never resets by itself. |
+| **Grown-ups** | Parental gate, then voice/sound/motion/contrast controls, a voice-cast picker, 3 or 5 rounds per session, reset progress, and a plain-language privacy note. |
 
 The app requests **no Android system permissions** — including no `INTERNET` permission.
 The merged manifest contains one app-private signature permission added by AndroidX to
@@ -122,7 +126,8 @@ Bundled assets: videos/*.mp4, content.json   |   Platform VideoView + TextToSpee
 - Bundled JSON content is validated on load **and** in JVM tests.
 - Videos are copied once to cache for reliable playback; no network permission exists.
 - Narration uses the platform TTS engine, so no voice files are shipped and every
-  caption stays in sync without baking audio into video.
+  character voice stays offline and free. The app selects a local, high-quality voice when
+  one is installed, and captions stay in sync without baking audio into video.
 - See [architecture](docs/03-architecture/architecture.md) and the
   [ADRs](docs/03-architecture/adr/) for trade-offs.
 
@@ -150,7 +155,8 @@ background/resume, gate friction, and the reset flow.
 
 ## Privacy
 
-- No network permission, no ads, no accounts, no analytics, no third-party SDKs.
+- No network permission, no ads, no accounts, no analytics. The only third-party runtime is
+  the MIT-licensed Rive animation engine, which ships no network code and no tracking.
 - Progress is stored only in app-private `SharedPreferences`; backups are disabled.
 - No child names, birthdays, photos, audio, or location are ever requested.
 - The device's TTS engine is external to the app. A network-based voice may download

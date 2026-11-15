@@ -55,6 +55,8 @@ import com.numbergarden.app.model.AppSettings
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.ContentErrorScreen
+import com.numbergarden.app.ui.components.GameMotionTheme
+import com.numbergarden.app.ui.components.GameSceneHeader
 import com.numbergarden.app.ui.components.SessionCompletionScreen
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
@@ -121,6 +123,8 @@ private fun MissingReadyScreen(
         SessionCompletionScreen(
             title = stringResource(R.string.missing_title),
             gardenFull = progress.blooms >= Progress.MAX_BLOOMS,
+            theme = GameMotionTheme.MISSING,
+            reduceMotion = settings.reduceMotion,
             onPlayAgain = onRestart,
             onHome = onHome,
         )
@@ -165,6 +169,12 @@ private fun MissingReadyScreen(
             ProgressRow(
                 index = game.index,
                 total = game.rounds.size,
+            )
+
+            GameSceneHeader(
+                theme = GameMotionTheme.MISSING,
+                reduceMotion = settings.reduceMotion,
+                celebrating = game.phase != CountPhase.ASK,
             )
 
             Row(

@@ -31,6 +31,8 @@ fun SessionCompletionScreen(
     gardenFull: Boolean,
     onPlayAgain: () -> Unit,
     onHome: () -> Unit,
+    theme: GameMotionTheme = GameMotionTheme.GARDEN,
+    reduceMotion: Boolean = false,
 ) {
     val speech = LocalSpeech.current
     val done = stringResource(R.string.count_session_done)
@@ -62,6 +64,11 @@ fun SessionCompletionScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
         ) {
+            GameSceneHeader(
+                theme = theme,
+                reduceMotion = reduceMotion,
+                celebrating = true,
+            )
             FlowerArt(
                 bloomed = true,
                 size = 132.dp,

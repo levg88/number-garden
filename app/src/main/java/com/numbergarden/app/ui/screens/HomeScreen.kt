@@ -41,7 +41,6 @@ import com.numbergarden.app.ui.components.CompareArt
 import com.numbergarden.app.ui.components.CountArt
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenScaffold
-import com.numbergarden.app.ui.components.LottieArt
 import com.numbergarden.app.ui.components.NumbersArt
 import com.numbergarden.app.ui.components.WatchArt
 import com.numbergarden.app.ui.theme.LocalHighContrast
@@ -290,7 +289,12 @@ private fun GardenHomeCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            LottieArt(resId = R.raw.flower_bloom, modifier = Modifier.size(58.dp))
+            FlowerArt(
+                bloomed = blooms > 0,
+                size = 58.dp,
+                petalColor = com.numbergarden.app.ui.theme.FlowerAmber,
+                modifier = Modifier.size(58.dp),
+            )
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
                     text = stringResource(R.string.home_garden),

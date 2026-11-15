@@ -44,6 +44,8 @@ import com.numbergarden.app.model.CompareTarget
 import com.numbergarden.app.model.Progress
 import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.ContentErrorScreen
+import com.numbergarden.app.ui.components.GameMotionTheme
+import com.numbergarden.app.ui.components.GameSceneHeader
 import com.numbergarden.app.ui.components.GardenButton
 import com.numbergarden.app.ui.components.GardenScaffold
 import com.numbergarden.app.ui.components.SessionCompletionScreen
@@ -96,6 +98,8 @@ private fun CompareReadyScreen(
         SessionCompletionScreen(
             title = stringResource(R.string.compare_title),
             gardenFull = progress.blooms >= Progress.MAX_BLOOMS,
+            theme = GameMotionTheme.COMPARE,
+            reduceMotion = settings.reduceMotion,
             onPlayAgain = onRestart,
             onHome = onHome,
         )
@@ -142,6 +146,12 @@ private fun CompareReadyScreen(
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
             ProgressRow(index = game.index, total = game.rounds.size)
+
+            GameSceneHeader(
+                theme = GameMotionTheme.COMPARE,
+                reduceMotion = settings.reduceMotion,
+                celebrating = game.phase != ComparePhase.ASK,
+            )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

@@ -57,8 +57,9 @@ import com.numbergarden.app.ui.components.AppleField
 import com.numbergarden.app.ui.components.ContentErrorScreen
 import com.numbergarden.app.ui.components.FlowerArt
 import com.numbergarden.app.ui.components.GardenButton
+import com.numbergarden.app.ui.components.GameMotionTheme
+import com.numbergarden.app.ui.components.GameSceneHeader
 import com.numbergarden.app.ui.components.GardenScaffold
-import com.numbergarden.app.ui.components.LottieArt
 import com.numbergarden.app.ui.components.NumberButton
 import com.numbergarden.app.ui.components.rememberMotionAllowed
 import com.numbergarden.app.util.numberWord
@@ -120,6 +121,7 @@ private fun CountingReadyScreen(
     if (game.completed) {
         CompletionScreen(
             gardenFull = progress.blooms >= Progress.MAX_BLOOMS,
+            settings = settings,
             onPlayAgain = onRestart,
             onHome = onHome,
         )
@@ -167,6 +169,12 @@ private fun CountingReadyScreen(
                 total = game.rounds.size,
             )
 
+            GameSceneHeader(
+                theme = GameMotionTheme.COUNTING,
+                reduceMotion = settings.reduceMotion,
+                celebrating = game.phase != CountPhase.ASK,
+            )
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -181,7 +189,6 @@ private fun CountingReadyScreen(
                         .semantics { heading() },
                 )
                 SpeakerButton(onClick = { speech.say(prompt) })
-                LottieArt(resId = R.raw.apple_bounce, modifier = Modifier.size(44.dp))
             }
 
             BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
@@ -259,6 +266,7 @@ private fun CountingReadyScreen(
 @Composable
 private fun CompletionScreen(
     gardenFull: Boolean,
+    settings: AppSettings,
     onPlayAgain: () -> Unit,
     onHome: () -> Unit,
 ) {
@@ -283,6 +291,11 @@ private fun CompletionScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(18.dp, Alignment.CenterVertically),
         ) {
+            GameSceneHeader(
+                theme = GameMotionTheme.GARDEN,
+                reduceMotion = settings.reduceMotion,
+                celebrating = true,
+            )
             FlowerArt(bloomed = true, size = 132.dp)
             Text(
                 text = done,

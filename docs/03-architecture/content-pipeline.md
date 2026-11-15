@@ -1,8 +1,9 @@
 # Content and media pipeline
 
-The app ships two short lesson videos and one JSON content pack. Both are generated or
-authored in-repository, so there are no third-party media licences and no build-time
-download.
+The app ships two short lesson videos, one JSON content pack, and one Rive mascot. The
+videos and JSON are generated or authored in-repository; the Rive file is a MIT-licensed
+sample credited in [content-license.md](../content-license.md). No build step downloads
+media at build time.
 
 ## 1. What ships
 

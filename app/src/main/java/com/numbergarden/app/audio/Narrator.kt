@@ -1,6 +1,7 @@
 package com.numbergarden.app.audio
 
 import android.content.Context
+import android.media.AudioAttributes
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -19,9 +20,26 @@ object NoopSpeech : Speech {
 
 val LocalSpeech = staticCompositionLocalOf<Speech> { NoopSpeech }
 
+/** A character voice is a pitch/rate/pause recipe. It is intentionally tiny and data-only. */
+private data class VoiceCharacter(
+    val pitch: Float,
+    val rate: Float,
+    val pauseMs: Int,
+)
+
+private enum class Mood {
+    NEUTRAL,
+    WARM,
+    QUESTION,
+    CHEER,
+    TEACH,
+}
+
 /**
- * Thin wrapper around the platform text-to-speech engine.
- * Narration is optional, never required to play, and fails quietly.
+ * The free, offline "voice cast". Android's platform TTS does the speaking; the
+ * performance comes from casting a character, splitting lines into acted phrases, and
+ * varying pitch, pace, and pauses the way a storyteller would. No voice files are
+ * shipped, so the app stays tiny, offline, and caretaker-configurable.
  */
 class Narrator(
     context: Context,
@@ -34,6 +52,7 @@ class Narrator(
     private var ready = false
     private var released = false
     private var pending: Pending? = null
+    private var utteranceCounter = 0
 
     init {
         engine = TextToSpeech(context.applicationContext) { status ->
@@ -46,11 +65,20 @@ class Narrator(
                 ) {
                     engine?.setLanguage(Locale.getDefault())
                 }
-                applyStyle()
+                chooseBestVoice()
+                runCatching {
+                    engine?.setAudioAttributes(
+                        AudioAttributes.Builder()
+                            .setUsage(AudioAttributes.USAGE_ASSISTANCE_ACCESSIBILITY)
+                            .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH)
+                            .build(),
+                    )
+                }
                 engine?.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                     override fun onStart(utteranceId: String?) = Unit
                     override fun onDone(utteranceId: String?) = Unit
 
+                    @Suppress("OVERRIDE_DEPRECATION")
                     @Deprecated("Deprecated in Java")
                     override fun onError(utteranceId: String?) = Unit
                 })
@@ -71,20 +99,102 @@ class Narrator(
     }
 
     private fun speakNow(text: String, add: Boolean) {
-        applyStyle()
-        val mode = if (add) TextToSpeech.QUEUE_ADD else TextToSpeech.QUEUE_FLUSH
-        engine?.speak(text, mode, null, "ng-${text.hashCode()}")
+        val character = characterFor(settingsRepository.settings.value.voiceStyle)
+        val phrases = phrases(text)
+        if (phrases.isEmpty()) return
+        var first = !add
+        phrases.forEachIndexed { index, phrase ->
+            val mood = moodFor(phrase, index, phrases.lastIndex)
+            applyVoice(character, mood, index)
+            val mode = if (first) TextToSpeech.QUEUE_FLUSH else TextToSpeech.QUEUE_ADD
+            if (!first && character.pauseMs > 0) {
+                runCatching {
+                    engine?.playSilentUtterance(
+                        character.pauseMs.toLong(),
+                        TextToSpeech.QUEUE_ADD,
+                        "ng-pause-${utteranceCounter++}",
+                    )
+                }
+            }
+            engine?.speak(phrase, mode, null, "ng-${utteranceCounter++}-${phrase.hashCode()}")
+            first = false
+        }
     }
 
-    private fun applyStyle() {
-        val style = settingsRepository.settings.value.voiceStyle
-        val (rate, pitch) = when (style) {
-            "hero" -> 1.05f to 1.18f
-            "robot" -> 0.78f to 0.72f
-            else -> 0.88f to 1.0f
+    private fun applyVoice(character: VoiceCharacter, mood: Mood, index: Int) {
+        val (pitchShift, rateShift) = when (mood) {
+            Mood.NEUTRAL -> 0f to 0f
+            Mood.WARM -> 0.03f to -0.06f
+            Mood.QUESTION -> 0.10f to -0.03f
+            Mood.CHEER -> 0.16f to 0.06f
+            Mood.TEACH -> -0.02f to -0.08f
         }
-        engine?.setSpeechRate(rate)
-        engine?.setPitch(pitch)
+        // A tiny lift on the final phrase of a question makes the line feel spoken,
+        // rather than read. It is deliberately subtle.
+        val questionLift = if (mood == Mood.QUESTION && index > 0) 0.04f else 0f
+        engine?.setPitch((character.pitch + pitchShift + questionLift).coerceIn(0.4f, 2.0f))
+        engine?.setSpeechRate((character.rate + rateShift).coerceIn(0.4f, 2.2f))
+    }
+
+    private fun characterFor(style: String): VoiceCharacter = when (style) {
+        "willow" -> VoiceCharacter(pitch = 1.02f, rate = 0.88f, pauseMs = 260)
+        "bramble" -> VoiceCharacter(pitch = 0.84f, rate = 0.92f, pauseMs = 300)
+        "zippy" -> VoiceCharacter(pitch = 1.34f, rate = 1.04f, pauseMs = 160)
+        "sparkle" -> VoiceCharacter(pitch = 1.48f, rate = 1.00f, pauseMs = 180)
+        // Backwards-compatible names from the first version of the app.
+        "hero" -> VoiceCharacter(pitch = 0.88f, rate = 0.96f, pauseMs = 260)
+        "robot" -> VoiceCharacter(pitch = 0.72f, rate = 1.00f, pauseMs = 160)
+        else -> VoiceCharacter(pitch = 1.18f, rate = 0.96f, pauseMs = 210)
+    }
+
+    private fun moodFor(phrase: String, index: Int, lastIndex: Int): Mood {
+        val lower = phrase.lowercase(Locale.US)
+        return when {
+            phrase.contains("?") -> Mood.QUESTION
+            lower.startsWith("yes") || lower.contains("hooray") || lower.contains("you did it") ->
+                Mood.CHEER
+            lower.contains("this is") || lower.contains("it is") || lower.contains("make ") ->
+                Mood.TEACH
+            index == lastIndex && (lower.startsWith("let") || lower.contains("look") ||
+                lower.contains("try") || lower.contains("count")) -> Mood.WARM
+            else -> Mood.NEUTRAL
+        }
+    }
+
+    private fun phrases(text: String): List<String> {
+        val sentences = Regex("[^.!?]+[.!?]?").findAll(text)
+            .map { it.value.trim() }
+            .filter { it.isNotEmpty() }
+            .toList()
+        if (sentences.isEmpty()) return listOf(text.trim())
+        return sentences.flatMap { sentence ->
+            if (sentence.length <= 58) {
+                listOf(sentence)
+            } else {
+                sentence.split(",", ";", ":", "—")
+                    .map { it.trim() }
+                    .filter { it.isNotEmpty() }
+                    .map { part -> if (part.lastOrNull()?.isLetter() == true) "$part." else part }
+            }
+        }
+    }
+
+    private fun chooseBestVoice() {
+        val tts = engine ?: return
+        val current = tts.voice ?: return
+        val voices = runCatching { tts.voices }.getOrNull() ?: return
+        val candidates = voices.filter {
+            it.locale.language.equals(current.locale.language, ignoreCase = true) &&
+                it.locale.country.equals(current.locale.country, ignoreCase = true)
+        }.ifEmpty {
+            voices.filter { it.locale.language.equals(current.locale.language, ignoreCase = true) }
+        }
+        if (candidates.isEmpty()) return
+        val best = candidates
+            .filter { !it.isNetworkConnectionRequired }
+            .maxByOrNull { it.quality }
+            ?: candidates.maxByOrNull { it.quality }
+        best?.let { runCatching { tts.voice = it } }
     }
 
     override fun stop() {

@@ -16,7 +16,10 @@ import com.numbergarden.app.ui.screens.AdditionScreen
 import com.numbergarden.app.ui.screens.MatchScreen
 import com.numbergarden.app.ui.screens.MathScreen
 import com.numbergarden.app.ui.screens.MissingScreen
+import com.numbergarden.app.ui.screens.OrderScreen
 import com.numbergarden.app.ui.screens.PatternScreen
+import com.numbergarden.app.ui.screens.BondScreen
+import com.numbergarden.app.ui.screens.PositionScreen
 import com.numbergarden.app.ui.screens.ShapesScreen
 import com.numbergarden.app.ui.screens.TapNumberScreen
 import com.numbergarden.app.ui.screens.GardenScreen
@@ -41,6 +44,9 @@ private object Routes {
     const val SHAPES = "shapes"
     const val MISSING = "missing"
     const val MATH = "math"
+    const val ORDER = "order"
+    const val BONDS = "bonds"
+    const val POSITIONS = "positions"
     const val GARDEN = "garden"
     const val GATE = "grownups"
     const val SETTINGS = "settings"
@@ -123,6 +129,9 @@ fun NumberGardenNavHost(container: AppContainer) {
                 onShapes = { navController.navigate(Routes.SHAPES) },
                 onMissing = { navController.navigate(Routes.MISSING) },
                 onMath = { navController.navigate(Routes.MATH) },
+                onOrder = { navController.navigate(Routes.ORDER) },
+                onBonds = { navController.navigate(Routes.BONDS) },
+                onPositions = { navController.navigate(Routes.POSITIONS) },
                 onBack = { navController.popBackStack() },
                 onHome = goHome,
             )
@@ -154,6 +163,18 @@ fun NumberGardenNavHost(container: AppContainer) {
 
         composable(Routes.MATH) {
             MathScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.ORDER) {
+            OrderScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.BONDS) {
+            BondScreen(container = container, onHome = goHome)
+        }
+
+        composable(Routes.POSITIONS) {
+            PositionScreen(container = container, onHome = goHome)
         }
 
         composable(Routes.GARDEN) {

@@ -4,7 +4,7 @@ All notable changes to Number Garden are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project intends to use
 [Semantic Versioning](https://semver.org/) once there is a public release.
 
-## [0.2.0] — 2026-11-15
+## [0.8.0] — 2026-11-15
 
 Animation, more games, and a character voice cast.
 
@@ -147,5 +147,5 @@ First MVP, implemented in this repository. Not yet device-verified and not relea
 - Decide whether 3 rounds should be the default session length.
 - Consider screenshot tests once the visual design stabilises.
 
-[0.2.0]: https://example.invalid/number-garden/releases/tag/v0.2.0
+[0.8.0]: https://example.invalid/number-garden/releases/tag/v0.8.0
 [0.1.0]: https://example.invalid/number-garden/releases/tag/v0.1.0
